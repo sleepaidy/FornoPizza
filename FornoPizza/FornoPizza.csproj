@@ -6,4 +6,8 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\FornoPizza.Data\FornoPizza.Data.csproj" />
+  </ItemGroup>
+
 </Project>
