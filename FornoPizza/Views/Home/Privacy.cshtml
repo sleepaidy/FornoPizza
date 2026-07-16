@@ -1,6 +1,27 @@
 ﻿@{
-    ViewData["Title"] = "Privacy Policy";
+    ViewData["Title"] = "Конфиденциальность — FORNO";
 }
-<h1>@ViewData["Title"]</h1>
 
-<p>Use this page to detail your site's privacy policy.</p>
+<header class="top">
+    <a class="logo" asp-controller="Home" asp-action="Index">FORNO</a>
+    <nav class="nav">
+        <a asp-controller="Home" asp-action="Index">На главную</a>
+    </nav>
+</header>
+
+<main style="padding: 1rem 6vw 4rem;">
+    <section class="panel">
+        <div class="step-head">
+            <span class="step-num">i</span>
+            <div>
+                <h2>Конфиденциальность</h2>
+                <p>Мы используем ваши контакты и адрес только для доставки заказа.</p>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer class="footer">
+    <span>FORNO · пицца из настоящей печи</span>
+    <span>Ежедневно 11:00–23:00</span>
+</footer>

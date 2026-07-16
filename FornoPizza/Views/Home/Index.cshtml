@@ -1,8 +1,310 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "FORNO — заказ пиццы";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<header class="top">
+    <a class="logo" asp-controller="Home" asp-action="Index">FORNO</a>
+    <nav class="nav">
+        <a href="#menu">Меню</a>
+        <a href="#build">Сборка</a>
+        <a href="#order">Заказ</a>
+    </nav>
+    <a class="top-cta" href="#order">К оформлению</a>
+</header>
+
+<main>
+    <section class="hero">
+        <div class="hero-copy">
+            <p class="eyebrow">Доставка за 35 минут</p>
+            <h1>FORNO</h1>
+            <p class="lead">Выберите пиццу, соберите её под себя и оформите заказ в четыре шага.</p>
+            <div class="hero-actions">
+                <a class="btn btn-primary" href="#menu">Выбрать пиццу</a>
+                <a class="btn btn-ghost" href="#build">Собрать свою</a>
+            </div>
+        </div>
+        <div class="hero-visual" role="img" aria-label="Пицца из печи"></div>
+    </section>
+
+    <form class="order-flow" action="#" method="post">
+        <section class="panel" id="menu">
+            <div class="step-head">
+                <span class="step-num">01</span>
+                <div>
+                    <h2>Выберите пиццу</h2>
+                    <p>Основа заказа — одна пицца из меню.</p>
+                </div>
+            </div>
+
+            <div class="pizza-grid">
+                <label class="pizza-card">
+                    <input type="radio" name="pizza" value="margherita" required checked />
+                    <span class="pizza-media m1"></span>
+                    <span class="pizza-body">
+                        <span class="pizza-name">Маргарита</span>
+                        <span class="pizza-desc">Томаты, моцарелла, базилик</span>
+                        <span class="pizza-price">от 490 ₽</span>
+                    </span>
+                </label>
+
+                <label class="pizza-card">
+                    <input type="radio" name="pizza" value="pepperoni" />
+                    <span class="pizza-media m2"></span>
+                    <span class="pizza-body">
+                        <span class="pizza-name">Пепперони</span>
+                        <span class="pizza-desc">Острая колбаса, сыр, томатный соус</span>
+                        <span class="pizza-price">от 590 ₽</span>
+                    </span>
+                </label>
+
+                <label class="pizza-card">
+                    <input type="radio" name="pizza" value="funghi" />
+                    <span class="pizza-media m3"></span>
+                    <span class="pizza-body">
+                        <span class="pizza-name">Грибная</span>
+                        <span class="pizza-desc">Шампиньоны, сливки, трюфельное масло</span>
+                        <span class="pizza-price">от 620 ₽</span>
+                    </span>
+                </label>
+
+                <label class="pizza-card">
+                    <input type="radio" name="pizza" value="quatro" />
+                    <span class="pizza-media m4"></span>
+                    <span class="pizza-body">
+                        <span class="pizza-name">Четыре сыра</span>
+                        <span class="pizza-desc">Моцарелла, горгонзола, пармезан, чеддер</span>
+                        <span class="pizza-price">от 650 ₽</span>
+                    </span>
+                </label>
+            </div>
+        </section>
+
+        <section class="panel" id="build">
+            <div class="step-head">
+                <span class="step-num">02</span>
+                <div>
+                    <h2>Соберите пиццу</h2>
+                    <p>Размер, тесто и добавки влияют на итоговую сумму.</p>
+                </div>
+            </div>
+
+            <div class="build-grid">
+                <fieldset class="field-block">
+                    <legend>Размер</legend>
+                    <div class="chips">
+                        <label class="chip">
+                            <input type="radio" name="size" value="25" />
+                            <span>25 см</span>
+                        </label>
+                        <label class="chip">
+                            <input type="radio" name="size" value="30" checked />
+                            <span>30 см · +120 ₽</span>
+                        </label>
+                        <label class="chip">
+                            <input type="radio" name="size" value="35" />
+                            <span>35 см · +220 ₽</span>
+                        </label>
+                    </div>
+                </fieldset>
+
+                <fieldset class="field-block">
+                    <legend>Тесто</legend>
+                    <div class="chips">
+                        <label class="chip">
+                            <input type="radio" name="dough" value="thin" checked />
+                            <span>Тонкое</span>
+                        </label>
+                        <label class="chip">
+                            <input type="radio" name="dough" value="classic" />
+                            <span>Классическое</span>
+                        </label>
+                        <label class="chip">
+                            <input type="radio" name="dough" value="cheese" />
+                            <span>С сырным бортом · +80 ₽</span>
+                        </label>
+                    </div>
+                </fieldset>
+
+                <fieldset class="field-block field-block--wide">
+                    <legend>Добавки</legend>
+                    <div class="toppings">
+                        <label class="topping">
+                            <input type="checkbox" name="topping" value="mozarella" />
+                            <span>Моцарелла</span>
+                            <em>+70 ₽</em>
+                        </label>
+                        <label class="topping">
+                            <input type="checkbox" name="topping" value="bacon" />
+                            <span>Бекон</span>
+                            <em>+90 ₽</em>
+                        </label>
+                        <label class="topping">
+                            <input type="checkbox" name="topping" value="jalapeno" />
+                            <span>Халапеньо</span>
+                            <em>+50 ₽</em>
+                        </label>
+                        <label class="topping">
+                            <input type="checkbox" name="topping" value="olives" />
+                            <span>Оливки</span>
+                            <em>+60 ₽</em>
+                        </label>
+                        <label class="topping">
+                            <input type="checkbox" name="topping" value="mushrooms" />
+                            <span>Грибы</span>
+                            <em>+70 ₽</em>
+                        </label>
+                        <label class="topping">
+                            <input type="checkbox" name="topping" value="sauce" />
+                            <span>Соус барбекю</span>
+                            <em>+40 ₽</em>
+                        </label>
+                    </div>
+                </fieldset>
+
+                <fieldset class="field-block">
+                    <legend>Количество</legend>
+                    <div class="chips">
+                        <label class="chip">
+                            <input type="radio" name="qty" value="1" checked />
+                            <span>1</span>
+                        </label>
+                        <label class="chip">
+                            <input type="radio" name="qty" value="2" />
+                            <span>2</span>
+                        </label>
+                        <label class="chip">
+                            <input type="radio" name="qty" value="3" />
+                            <span>3</span>
+                        </label>
+                        <label class="chip">
+                            <input type="radio" name="qty" value="4" />
+                            <span>4</span>
+                        </label>
+                        <label class="chip">
+                            <input type="radio" name="qty" value="5" />
+                            <span>5</span>
+                        </label>
+                    </div>
+                </fieldset>
+            </div>
+        </section>
+
+        <section class="panel checkout" id="order">
+            <div class="checkout-main">
+                <div class="step-head">
+                    <span class="step-num">03</span>
+                    <div>
+                        <h2>Куда доставить</h2>
+                        <p>Контакты и адрес для курьера.</p>
+                    </div>
+                </div>
+
+                <div class="form-grid">
+                    <label class="input">
+                        <span>Имя</span>
+                        <input type="text" name="name" placeholder="Анна" required />
+                    </label>
+                    <label class="input">
+                        <span>Телефон</span>
+                        <input type="tel" name="phone" placeholder="+7 (___) ___-__-__" required />
+                    </label>
+                    <label class="input input--wide">
+                        <span>Адрес</span>
+                        <input type="text" name="address" placeholder="Улица, дом, квартира" required />
+                    </label>
+                    <label class="input input--wide">
+                        <span>Комментарий</span>
+                        <textarea name="comment" rows="3" placeholder="Домофон, этаж, пожелания к заказу"></textarea>
+                    </label>
+                </div>
+
+                <fieldset class="field-block">
+                    <legend>Оплата</legend>
+                    <div class="chips">
+                        <label class="chip">
+                            <input type="radio" name="pay" value="card" checked />
+                            <span>Картой курьеру</span>
+                        </label>
+                        <label class="chip">
+                            <input type="radio" name="pay" value="cash" />
+                            <span>Наличными</span>
+                        </label>
+                        <label class="chip">
+                            <input type="radio" name="pay" value="online" />
+                            <span>Онлайн</span>
+                        </label>
+                    </div>
+                </fieldset>
+            </div>
+
+            <aside class="summary" aria-labelledby="summary-title">
+                <div class="step-head step-head--compact">
+                    <span class="step-num">04</span>
+                    <h2 id="summary-title">Ваш заказ</h2>
+                </div>
+
+                <ul class="summary-list">
+                    <li>
+                        <span>Пицца</span>
+                        <strong class="summary-pizza">
+                            <span class="v v-margherita">Маргарита</span>
+                            <span class="v v-pepperoni">Пепперони</span>
+                            <span class="v v-funghi">Грибная</span>
+                            <span class="v v-quatro">Четыре сыра</span>
+                        </strong>
+                    </li>
+                    <li>
+                        <span>Размер</span>
+                        <strong class="summary-size">
+                            <span class="v v-size-25">25 см</span>
+                            <span class="v v-size-30">30 см</span>
+                            <span class="v v-size-35">35 см</span>
+                        </strong>
+                    </li>
+                    <li>
+                        <span>Тесто</span>
+                        <strong class="summary-dough">
+                            <span class="v v-dough-thin">Тонкое</span>
+                            <span class="v v-dough-classic">Классическое</span>
+                            <span class="v v-dough-cheese">С сырным бортом</span>
+                        </strong>
+                    </li>
+                    <li>
+                        <span>Добавки</span>
+                        <strong class="summary-toppings">
+                            <span class="v v-none">Без добавок</span>
+                            <span class="v v-top-mozarella">Моцарелла</span>
+                            <span class="v v-top-bacon">Бекон</span>
+                            <span class="v v-top-jalapeno">Халапеньо</span>
+                            <span class="v v-top-olives">Оливки</span>
+                            <span class="v v-top-mushrooms">Грибы</span>
+                            <span class="v v-top-sauce">Соус барбекю</span>
+                        </strong>
+                    </li>
+                    <li>
+                        <span>Количество</span>
+                        <strong class="summary-qty">
+                            <span class="v v-qty-1">1</span>
+                            <span class="v v-qty-2">2</span>
+                            <span class="v v-qty-3">3</span>
+                            <span class="v v-qty-4">4</span>
+                            <span class="v v-qty-5">5</span>
+                        </strong>
+                    </li>
+                </ul>
+
+                <div class="summary-total">
+                    <span>За 1 шт.</span>
+                    <strong class="unit-price"></strong>
+                </div>
+                <p class="summary-note">Логика: база + размер + борт + добавки. Итого заказа = сумма за 1 шт. × количество.</p>
+                <button class="btn btn-primary btn-block" type="submit">Заказать</button>
+            </aside>
+        </section>
+    </form>
+</main>
+
+<footer class="footer">
+    <span>FORNO · пицца из настоящей печи</span>
+    <span>Ежедневно 11:00–23:00</span>
+</footer>
