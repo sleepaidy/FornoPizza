@@ -1,6 +1,6 @@
 ﻿namespace FornoPizza.Data.Enums
 {
-    public enum Status
+    public enum OrderStatus
     {
         New = 0,
         Confirmed = 1,

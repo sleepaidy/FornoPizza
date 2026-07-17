@@ -6,15 +6,15 @@ namespace FornoPizza.Data.Models
     public class OrderData
     {
         public int Id { get; set; } 
-        public DateTime DateOfOrder { get; set; }
-        public Status Status { get; set; }
+        public DateTime DateOfOrder { get; set; } = DateTime.UtcNow;
+        public OrderStatus Status { get; set; } = OrderStatus.New;
         public decimal FinalPrice { get; set; }
         public Size Size { get; set; }
         public Dough Dough { get; set; }
-        public int Amount { get; set; }
+        public int Quantity { get; set; } = 1;
         public int PizzaId { get; set; }
         [MaxLength(100)]
-        public string PizzaNameInOrder { get; set; }
+        public string PizzaNameInOrder { get; set; } = string.Empty;
         public decimal PizzaPriceInOrder { get; set; }
         public PaymentMethod PaymentMethod { get; set; }
         [MaxLength(300)]
