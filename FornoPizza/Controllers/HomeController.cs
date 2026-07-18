@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using FornoPizza.Models;
+using FornoPizza.Models.Home;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FornoPizza.Controllers
@@ -16,6 +17,12 @@ namespace FornoPizza.Controllers
         public IActionResult Index()
         {
             return View();
+        }
+
+        [HttpPost]
+        public IActionResult CreateOrder(CreateOrderViewModel viewModel)
+        {
+            return RedirectToAction(nameof(Index));
         }
 
         public IActionResult Privacy()

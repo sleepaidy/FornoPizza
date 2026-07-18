@@ -1,6 +1,8 @@
-﻿@{
+﻿@model FornoPizza.Models.Home.CreateOrderViewModel
+@{
     ViewData["Title"] = "FORNO — заказ пиццы";
 }
+
 
 <header class="top">
     <a class="logo" asp-controller="Home" asp-action="Index">FORNO</a>
@@ -26,7 +28,7 @@
         <div class="hero-visual" role="img" aria-label="Пицца из печи"></div>
     </section>
 
-    <form class="order-flow" action="#" method="post">
+    <form class="order-flow" asp-controller="Home" asp-action="CreateOrder" method="post">
         <section class="panel" id="menu">
             <div class="step-head">
                 <span class="step-num">01</span>
@@ -38,7 +40,7 @@
 
             <div class="pizza-grid">
                 <label class="pizza-card">
-                    <input type="radio" name="pizza" value="margherita" required checked />
+                    <input type="radio" name="PizzaId" value="1" required checked />
                     <span class="pizza-media m1"></span>
                     <span class="pizza-body">
                         <span class="pizza-name">Маргарита</span>
@@ -48,7 +50,7 @@
                 </label>
 
                 <label class="pizza-card">
-                    <input type="radio" name="pizza" value="pepperoni" />
+                    <input type="radio" name="PizzaId" value="2" />
                     <span class="pizza-media m2"></span>
                     <span class="pizza-body">
                         <span class="pizza-name">Пепперони</span>
@@ -58,7 +60,7 @@
                 </label>
 
                 <label class="pizza-card">
-                    <input type="radio" name="pizza" value="funghi" />
+                    <input type="radio" name="PizzaId" value="3" />
                     <span class="pizza-media m3"></span>
                     <span class="pizza-body">
                         <span class="pizza-name">Грибная</span>
@@ -68,7 +70,7 @@
                 </label>
 
                 <label class="pizza-card">
-                    <input type="radio" name="pizza" value="quatro" />
+                    <input type="radio" name="PizzaId" value="4" />
                     <span class="pizza-media m4"></span>
                     <span class="pizza-body">
                         <span class="pizza-name">Четыре сыра</span>
@@ -93,15 +95,15 @@
                     <legend>Размер</legend>
                     <div class="chips">
                         <label class="chip">
-                            <input type="radio" name="size" value="25" />
+                            <input type="radio" name="Size" value="Small" />
                             <span>25 см</span>
                         </label>
                         <label class="chip">
-                            <input type="radio" name="size" value="30" checked />
+                            <input type="radio" name="Size" value="Medium" checked />
                             <span>30 см · +120 ₽</span>
                         </label>
                         <label class="chip">
-                            <input type="radio" name="size" value="35" />
+                            <input type="radio" name="Size" value="Big" />
                             <span>35 см · +220 ₽</span>
                         </label>
                     </div>
@@ -111,15 +113,15 @@
                     <legend>Тесто</legend>
                     <div class="chips">
                         <label class="chip">
-                            <input type="radio" name="dough" value="thin" checked />
+                            <input type="radio" name="Dough" value="Thin" checked />
                             <span>Тонкое</span>
                         </label>
                         <label class="chip">
-                            <input type="radio" name="dough" value="classic" />
+                            <input type="radio" name="Dough" value="Classic" />
                             <span>Классическое</span>
                         </label>
                         <label class="chip">
-                            <input type="radio" name="dough" value="cheese" />
+                            <input type="radio" name="Dough" value="CheeseFilledCrust" />
                             <span>С сырным бортом · +80 ₽</span>
                         </label>
                     </div>
@@ -129,32 +131,32 @@
                     <legend>Добавки</legend>
                     <div class="toppings">
                         <label class="topping">
-                            <input type="checkbox" name="topping" value="mozarella" />
+                            <input type="checkbox" name="ToppingIds" value="1" />
                             <span>Моцарелла</span>
                             <em>+70 ₽</em>
                         </label>
                         <label class="topping">
-                            <input type="checkbox" name="topping" value="bacon" />
+                            <input type="checkbox" name="ToppingIds" value="2" />
                             <span>Бекон</span>
                             <em>+90 ₽</em>
                         </label>
                         <label class="topping">
-                            <input type="checkbox" name="topping" value="jalapeno" />
+                            <input type="checkbox" name="ToppingIds" value="3" />
                             <span>Халапеньо</span>
                             <em>+50 ₽</em>
                         </label>
                         <label class="topping">
-                            <input type="checkbox" name="topping" value="olives" />
+                            <input type="checkbox" name="ToppingIds" value="4" />
                             <span>Оливки</span>
                             <em>+60 ₽</em>
                         </label>
                         <label class="topping">
-                            <input type="checkbox" name="topping" value="mushrooms" />
+                            <input type="checkbox" name="ToppingIds" value="5" />
                             <span>Грибы</span>
                             <em>+70 ₽</em>
                         </label>
                         <label class="topping">
-                            <input type="checkbox" name="topping" value="sauce" />
+                            <input type="checkbox" name="ToppingIds" value="6" />
                             <span>Соус барбекю</span>
                             <em>+40 ₽</em>
                         </label>
@@ -165,23 +167,23 @@
                     <legend>Количество</legend>
                     <div class="chips">
                         <label class="chip">
-                            <input type="radio" name="qty" value="1" checked />
+                            <input type="radio" name="Quantity" value="1" checked />
                             <span>1</span>
                         </label>
                         <label class="chip">
-                            <input type="radio" name="qty" value="2" />
+                            <input type="radio" name="Quantity" value="2" />
                             <span>2</span>
                         </label>
                         <label class="chip">
-                            <input type="radio" name="qty" value="3" />
+                            <input type="radio" name="Quantity" value="3" />
                             <span>3</span>
                         </label>
                         <label class="chip">
-                            <input type="radio" name="qty" value="4" />
+                            <input type="radio" name="Quantity" value="4" />
                             <span>4</span>
                         </label>
                         <label class="chip">
-                            <input type="radio" name="qty" value="5" />
+                            <input type="radio" name="Quantity" value="5" />
                             <span>5</span>
                         </label>
                     </div>
@@ -202,19 +204,19 @@
                 <div class="form-grid">
                     <label class="input">
                         <span>Имя</span>
-                        <input type="text" name="name" placeholder="Анна" required />
+                        <input type="text" name="ClientName" placeholder="Анна" required />
                     </label>
                     <label class="input">
                         <span>Телефон</span>
-                        <input type="tel" name="phone" placeholder="+7 (___) ___-__-__" required />
+                        <input type="tel" name="ClientPhone" placeholder="+7 (___) ___-__-__" required />
                     </label>
                     <label class="input input--wide">
                         <span>Адрес</span>
-                        <input type="text" name="address" placeholder="Улица, дом, квартира" required />
+                        <input type="text" name="ClientAddress" placeholder="Улица, дом, квартира" required />
                     </label>
                     <label class="input input--wide">
                         <span>Комментарий</span>
-                        <textarea name="comment" rows="3" placeholder="Домофон, этаж, пожелания к заказу"></textarea>
+                        <textarea name="Comment" rows="3" placeholder="Домофон, этаж, пожелания к заказу"></textarea>
                     </label>
                 </div>
 
@@ -222,15 +224,15 @@
                     <legend>Оплата</legend>
                     <div class="chips">
                         <label class="chip">
-                            <input type="radio" name="pay" value="card" checked />
+                            <input type="radio" name="PaymentMethod" value="Card" checked />
                             <span>Картой курьеру</span>
                         </label>
                         <label class="chip">
-                            <input type="radio" name="pay" value="cash" />
+                            <input type="radio" name="PaymentMethod" value="Cash" />
                             <span>Наличными</span>
                         </label>
                         <label class="chip">
-                            <input type="radio" name="pay" value="online" />
+                            <input type="radio" name="PaymentMethod" value="Online" />
                             <span>Онлайн</span>
                         </label>
                     </div>
