@@ -10,6 +10,7 @@ namespace FornoPizza.Data
         public DbSet<PizzaData> Pizzas { get; set; }
         public DbSet<ToppingData> Toppings { get; set; }
         public DbSet<OrderToppingData> OrderToppings { get; set; }
+        public DbSet<OrderItemData> OrderItems { get; set; }
 
         public WebContext(DbContextOptions<WebContext> options) : base(options) { }
 
@@ -114,6 +115,11 @@ namespace FornoPizza.Data
             modelBuilder.Entity<OrderData>(entity =>
             {
                 entity.Property(x => x.FinalPrice)
+                .HasPrecision(18, 2);
+            });
+            modelBuilder.Entity<OrderItemData>(entity =>
+            {
+                entity.Property(x => x.LinePrice)
                 .HasPrecision(18, 2);
 
                 entity.Property(x => x.PizzaPriceInOrder)

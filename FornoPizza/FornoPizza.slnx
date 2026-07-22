@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="../FornoPizza.Data/FornoPizza.Data.csproj" />
+  <Project Path="FornoPizza.csproj" />
+</Solution>

@@ -47,16 +47,16 @@ namespace FornoPizza.Services
 
         private decimal GetToppingPriceSum(IEnumerable<ToppingData> toppings)
         {
-            if(toppings == null)
+            if (toppings == null)
             {
                 return 0;
             }
             return toppings.Sum(x => x.Price);
         }
-        public FinalOrderDto Calculate(int pizzaId, Size size, Dough dough, IEnumerable<int> toppingIds, int quantity)
+        public OrderLineDto CalculateOnePosition(int pizzaId, Size size, Dough dough, IEnumerable<int> toppingIds, int quantity)
         {
             toppingIds = toppingIds ?? Array.Empty<int>();
-            if(quantity <= 0)
+            if (quantity <= 0)
             {
                 throw new ArgumentOutOfRangeException(nameof(quantity));
             }
@@ -89,15 +89,25 @@ namespace FornoPizza.Services
                 ToppingName = x.Name,
                 ToppingPrice = x.Price,
             }).ToList();
-            
 
-            return new FinalOrderDto
+
+            return new OrderLineDto
             {
-                FinalPrice = finalPrice,
+                LinePrice = finalPrice,
                 Quantity = quantity,
                 OrderPizza = orderPizza,
                 OrderToppings = orderToppings,
             };
+        }
+
+        public decimal CalculateTotalOrder(List<OrderLineDto> orderLines)
+        {
+            decimal sum = 0;
+            foreach (var line in orderLines)
+            {
+                sum += line.LinePrice;
+            }
+            return sum;
         }
     }
 }
