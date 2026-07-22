@@ -160,75 +160,54 @@ body {
   display: grid;
   gap: 1.25rem;
   padding: 0 6vw 4rem;
-  counter-reset: unit-price;
 }
 
-/* Цена за 1 шт. через CSS-счётчики */
-.order-flow:has([name="pizza"][value="margherita"]:checked) { counter-increment: unit-price 490; }
-.order-flow:has([name="pizza"][value="pepperoni"]:checked) { counter-increment: unit-price 590; }
-.order-flow:has([name="pizza"][value="funghi"]:checked) { counter-increment: unit-price 620; }
-.order-flow:has([name="pizza"][value="quatro"]:checked) { counter-increment: unit-price 650; }
-
-.order-flow:has([name="size"][value="30"]:checked) { counter-increment: unit-price 120; }
-.order-flow:has([name="size"][value="35"]:checked) { counter-increment: unit-price 220; }
-
-.order-flow:has([name="dough"][value="cheese"]:checked) { counter-increment: unit-price 80; }
-
-.order-flow:has([name="topping"][value="mozarella"]:checked) { counter-increment: unit-price 70; }
-.order-flow:has([name="topping"][value="bacon"]:checked) { counter-increment: unit-price 90; }
-.order-flow:has([name="topping"][value="jalapeno"]:checked) { counter-increment: unit-price 50; }
-.order-flow:has([name="topping"][value="olives"]:checked) { counter-increment: unit-price 60; }
-.order-flow:has([name="topping"][value="mushrooms"]:checked) { counter-increment: unit-price 70; }
-.order-flow:has([name="topping"][value="sauce"]:checked) { counter-increment: unit-price 40; }
-
-.unit-price::after {
-  content: counter(unit-price) " ₽";
+.cart-actions {
+  margin-top: 1.25rem;
 }
 
-/* Сводка: что выбрано */
-.summary .v { display: none; }
-
-.order-flow:has([name="pizza"][value="margherita"]:checked) .v-margherita,
-.order-flow:has([name="pizza"][value="pepperoni"]:checked) .v-pepperoni,
-.order-flow:has([name="pizza"][value="funghi"]:checked) .v-funghi,
-.order-flow:has([name="pizza"][value="quatro"]:checked) .v-quatro,
-.order-flow:has([name="size"][value="25"]:checked) .v-size-25,
-.order-flow:has([name="size"][value="30"]:checked) .v-size-30,
-.order-flow:has([name="size"][value="35"]:checked) .v-size-35,
-.order-flow:has([name="dough"][value="thin"]:checked) .v-dough-thin,
-.order-flow:has([name="dough"][value="classic"]:checked) .v-dough-classic,
-.order-flow:has([name="dough"][value="cheese"]:checked) .v-dough-cheese,
-.order-flow:has([name="qty"][value="1"]:checked) .v-qty-1,
-.order-flow:has([name="qty"][value="2"]:checked) .v-qty-2,
-.order-flow:has([name="qty"][value="3"]:checked) .v-qty-3,
-.order-flow:has([name="qty"][value="4"]:checked) .v-qty-4,
-.order-flow:has([name="qty"][value="5"]:checked) .v-qty-5 {
-  display: inline;
+.cart-empty {
+  margin: 0;
+  color: var(--muted);
 }
 
-.order-flow:has([name="topping"][value="mozarella"]:checked) .v-top-mozarella,
-.order-flow:has([name="topping"][value="bacon"]:checked) .v-top-bacon,
-.order-flow:has([name="topping"][value="jalapeno"]:checked) .v-top-jalapeno,
-.order-flow:has([name="topping"][value="olives"]:checked) .v-top-olives,
-.order-flow:has([name="topping"][value="mushrooms"]:checked) .v-top-mushrooms,
-.order-flow:has([name="topping"][value="sauce"]:checked) .v-top-sauce {
-  display: inline;
+.cart-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.75rem;
 }
 
-.order-flow:has([name="topping"]:checked) .v-none { display: none; }
-.order-flow:not(:has([name="topping"]:checked)) .v-none { display: inline; }
+.cart-item {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: flex-start;
+  padding: 0.85rem 0;
+  border-bottom: 1px solid var(--line);
+}
 
-.summary-toppings .v:not(.v-none)::after { content: ", "; }
-.summary-toppings .v:not(.v-none):last-of-type::after,
-.summary-toppings .v:nth-last-child(1):not(.v-none)::after { content: ""; }
+.cart-item__meta {
+  margin-top: 0.25rem;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
 
-/* аккуратнее запятые у видимых добавок */
-.summary-toppings .v-top-mozarella::after,
-.summary-toppings .v-top-bacon::after,
-.summary-toppings .v-top-jalapeno::after,
-.summary-toppings .v-top-olives::after,
-.summary-toppings .v-top-mushrooms::after { content: ", "; }
-.summary-toppings .v-top-sauce::after { content: ""; }
+.cart-item__remove {
+  border: 0;
+  background: transparent;
+  color: var(--tomato);
+  cursor: pointer;
+  font: inherit;
+  font-weight: 600;
+  padding: 0;
+  white-space: nowrap;
+}
+
+.cart-item__remove:hover {
+  text-decoration: underline;
+}
 
 .panel {
   background: var(--surface);

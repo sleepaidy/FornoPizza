@@ -9,6 +9,7 @@
     <nav class="nav">
         <a href="#menu">Меню</a>
         <a href="#build">Сборка</a>
+        <a href="#cart">Корзина</a>
         <a href="#order">Заказ</a>
     </nav>
     <a class="top-cta" href="#order">К оформлению</a>
@@ -19,7 +20,7 @@
         <div class="hero-copy">
             <p class="eyebrow">Доставка за 35 минут</p>
             <h1>FORNO</h1>
-            <p class="lead">Выберите пиццу, соберите её под себя и оформите заказ в четыре шага.</p>
+            <p class="lead">Выберите пиццу, соберите её под себя и оформите заказ в несколько шагов.</p>
             <div class="hero-actions">
                 <a class="btn btn-primary" href="#menu">Выбрать пиццу</a>
                 <a class="btn btn-ghost" href="#build">Собрать свою</a>
@@ -29,18 +30,20 @@
     </section>
 
     <form class="order-flow" asp-controller="Home" asp-action="CreateOrder" method="post">
+        <div id="cart-fields" hidden></div>
+
         <section class="panel" id="menu">
             <div class="step-head">
                 <span class="step-num">01</span>
                 <div>
                     <h2>Выберите пиццу</h2>
-                    <p>Основа заказа — одна пицца из меню.</p>
+                    <p>Соберите позицию и добавьте её в корзину — можно несколько разных.</p>
                 </div>
             </div>
 
             <div class="pizza-grid">
                 <label class="pizza-card">
-                    <input type="radio" name="PizzaId" value="1" required checked />
+                    <input type="radio" name="draft.PizzaId" value="1" required checked />
                     <span class="pizza-media m1"></span>
                     <span class="pizza-body">
                         <span class="pizza-name">Маргарита</span>
@@ -50,7 +53,7 @@
                 </label>
 
                 <label class="pizza-card">
-                    <input type="radio" name="PizzaId" value="2" />
+                    <input type="radio" name="draft.PizzaId" value="2" />
                     <span class="pizza-media m2"></span>
                     <span class="pizza-body">
                         <span class="pizza-name">Пепперони</span>
@@ -60,7 +63,7 @@
                 </label>
 
                 <label class="pizza-card">
-                    <input type="radio" name="PizzaId" value="3" />
+                    <input type="radio" name="draft.PizzaId" value="3" />
                     <span class="pizza-media m3"></span>
                     <span class="pizza-body">
                         <span class="pizza-name">Грибная</span>
@@ -70,7 +73,7 @@
                 </label>
 
                 <label class="pizza-card">
-                    <input type="radio" name="PizzaId" value="4" />
+                    <input type="radio" name="draft.PizzaId" value="4" />
                     <span class="pizza-media m4"></span>
                     <span class="pizza-body">
                         <span class="pizza-name">Четыре сыра</span>
@@ -86,7 +89,7 @@
                 <span class="step-num">02</span>
                 <div>
                     <h2>Соберите пиццу</h2>
-                    <p>Размер, тесто и добавки влияют на итоговую сумму.</p>
+                    <p>Размер, тесто и добавки. Потом — «В корзину».</p>
                 </div>
             </div>
 
@@ -95,15 +98,15 @@
                     <legend>Размер</legend>
                     <div class="chips">
                         <label class="chip">
-                            <input type="radio" name="Size" value="Small" />
+                            <input type="radio" name="draft.Size" value="Small" />
                             <span>25 см</span>
                         </label>
                         <label class="chip">
-                            <input type="radio" name="Size" value="Medium" checked />
+                            <input type="radio" name="draft.Size" value="Medium" checked />
                             <span>30 см · +120 ₽</span>
                         </label>
                         <label class="chip">
-                            <input type="radio" name="Size" value="Big" />
+                            <input type="radio" name="draft.Size" value="Big" />
                             <span>35 см · +220 ₽</span>
                         </label>
                     </div>
@@ -113,15 +116,15 @@
                     <legend>Тесто</legend>
                     <div class="chips">
                         <label class="chip">
-                            <input type="radio" name="Dough" value="Thin" checked />
+                            <input type="radio" name="draft.Dough" value="Thin" checked />
                             <span>Тонкое</span>
                         </label>
                         <label class="chip">
-                            <input type="radio" name="Dough" value="Classic" />
+                            <input type="radio" name="draft.Dough" value="Classic" />
                             <span>Классическое</span>
                         </label>
                         <label class="chip">
-                            <input type="radio" name="Dough" value="CheeseFilledCrust" />
+                            <input type="radio" name="draft.Dough" value="CheeseFilledCrust" />
                             <span>С сырным бортом · +80 ₽</span>
                         </label>
                     </div>
@@ -131,32 +134,32 @@
                     <legend>Добавки</legend>
                     <div class="toppings">
                         <label class="topping">
-                            <input type="checkbox" name="ToppingIds" value="1" />
+                            <input type="checkbox" name="draft.ToppingIds" value="1" />
                             <span>Моцарелла</span>
                             <em>+70 ₽</em>
                         </label>
                         <label class="topping">
-                            <input type="checkbox" name="ToppingIds" value="2" />
+                            <input type="checkbox" name="draft.ToppingIds" value="2" />
                             <span>Бекон</span>
                             <em>+90 ₽</em>
                         </label>
                         <label class="topping">
-                            <input type="checkbox" name="ToppingIds" value="3" />
+                            <input type="checkbox" name="draft.ToppingIds" value="3" />
                             <span>Халапеньо</span>
                             <em>+50 ₽</em>
                         </label>
                         <label class="topping">
-                            <input type="checkbox" name="ToppingIds" value="4" />
+                            <input type="checkbox" name="draft.ToppingIds" value="4" />
                             <span>Оливки</span>
                             <em>+60 ₽</em>
                         </label>
                         <label class="topping">
-                            <input type="checkbox" name="ToppingIds" value="5" />
+                            <input type="checkbox" name="draft.ToppingIds" value="5" />
                             <span>Грибы</span>
                             <em>+70 ₽</em>
                         </label>
                         <label class="topping">
-                            <input type="checkbox" name="ToppingIds" value="6" />
+                            <input type="checkbox" name="draft.ToppingIds" value="6" />
                             <span>Соус барбекю</span>
                             <em>+40 ₽</em>
                         </label>
@@ -167,34 +170,51 @@
                     <legend>Количество</legend>
                     <div class="chips">
                         <label class="chip">
-                            <input type="radio" name="Quantity" value="1" checked />
+                            <input type="radio" name="draft.Quantity" value="1" checked />
                             <span>1</span>
                         </label>
                         <label class="chip">
-                            <input type="radio" name="Quantity" value="2" />
+                            <input type="radio" name="draft.Quantity" value="2" />
                             <span>2</span>
                         </label>
                         <label class="chip">
-                            <input type="radio" name="Quantity" value="3" />
+                            <input type="radio" name="draft.Quantity" value="3" />
                             <span>3</span>
                         </label>
                         <label class="chip">
-                            <input type="radio" name="Quantity" value="4" />
+                            <input type="radio" name="draft.Quantity" value="4" />
                             <span>4</span>
                         </label>
                         <label class="chip">
-                            <input type="radio" name="Quantity" value="5" />
+                            <input type="radio" name="draft.Quantity" value="5" />
                             <span>5</span>
                         </label>
                     </div>
                 </fieldset>
             </div>
+
+            <div class="cart-actions">
+                <button class="btn btn-primary" type="button" id="add-to-cart">В корзину</button>
+            </div>
+        </section>
+
+        <section class="panel" id="cart">
+            <div class="step-head">
+                <span class="step-num">03</span>
+                <div>
+                    <h2>Корзина</h2>
+                    <p>Позиции, которые уйдут в заказ. Можно удалить лишнее.</p>
+                </div>
+            </div>
+
+            <p class="cart-empty" id="cart-empty">Пока пусто — соберите пиццу и нажмите «В корзину».</p>
+            <ul class="cart-list" id="cart-list"></ul>
         </section>
 
         <section class="panel checkout" id="order">
             <div class="checkout-main">
                 <div class="step-head">
-                    <span class="step-num">03</span>
+                    <span class="step-num">04</span>
                     <div>
                         <h2>Куда доставить</h2>
                         <p>Контакты и адрес для курьера.</p>
@@ -241,65 +261,13 @@
 
             <aside class="summary" aria-labelledby="summary-title">
                 <div class="step-head step-head--compact">
-                    <span class="step-num">04</span>
+                    <span class="step-num">05</span>
                     <h2 id="summary-title">Ваш заказ</h2>
                 </div>
 
-                <ul class="summary-list">
-                    <li>
-                        <span>Пицца</span>
-                        <strong class="summary-pizza">
-                            <span class="v v-margherita">Маргарита</span>
-                            <span class="v v-pepperoni">Пепперони</span>
-                            <span class="v v-funghi">Грибная</span>
-                            <span class="v v-quatro">Четыре сыра</span>
-                        </strong>
-                    </li>
-                    <li>
-                        <span>Размер</span>
-                        <strong class="summary-size">
-                            <span class="v v-size-25">25 см</span>
-                            <span class="v v-size-30">30 см</span>
-                            <span class="v v-size-35">35 см</span>
-                        </strong>
-                    </li>
-                    <li>
-                        <span>Тесто</span>
-                        <strong class="summary-dough">
-                            <span class="v v-dough-thin">Тонкое</span>
-                            <span class="v v-dough-classic">Классическое</span>
-                            <span class="v v-dough-cheese">С сырным бортом</span>
-                        </strong>
-                    </li>
-                    <li>
-                        <span>Добавки</span>
-                        <strong class="summary-toppings">
-                            <span class="v v-none">Без добавок</span>
-                            <span class="v v-top-mozarella">Моцарелла</span>
-                            <span class="v v-top-bacon">Бекон</span>
-                            <span class="v v-top-jalapeno">Халапеньо</span>
-                            <span class="v v-top-olives">Оливки</span>
-                            <span class="v v-top-mushrooms">Грибы</span>
-                            <span class="v v-top-sauce">Соус барбекю</span>
-                        </strong>
-                    </li>
-                    <li>
-                        <span>Количество</span>
-                        <strong class="summary-qty">
-                            <span class="v v-qty-1">1</span>
-                            <span class="v v-qty-2">2</span>
-                            <span class="v v-qty-3">3</span>
-                            <span class="v v-qty-4">4</span>
-                            <span class="v v-qty-5">5</span>
-                        </strong>
-                    </li>
-                </ul>
+                <ul class="summary-list" id="cart-summary"></ul>
 
-                <div class="summary-total">
-                    <span>За 1 шт.</span>
-                    <strong class="unit-price"></strong>
-                </div>
-                <p class="summary-note">Логика: база + размер + борт + добавки. Итого заказа = сумма за 1 шт. × количество.</p>
+                <p class="summary-note">Итоговую сумму посчитает сервер при оформлении (цены из БД, не с формы).</p>
                 <button class="btn btn-primary btn-block" type="submit">Заказать</button>
             </aside>
         </section>
@@ -310,3 +278,7 @@
     <span>FORNO · пицца из настоящей печи</span>
     <span>Ежедневно 11:00–23:00</span>
 </footer>
+
+@section Scripts {
+    <script src="~/js/order/cart.js" asp-append-version="true"></script>
+}
