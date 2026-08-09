@@ -1,4 +1,6 @@
 using FornoPizza.Data;
+using FornoPizza.Data.Repository;
+using FornoPizza.Data.Repository.Interfaces;
 using FornoPizza.Services;
 using FornoPizza.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -10,7 +12,10 @@ builder.Services.AddDbContext<WebContext>(op => op.UseSqlServer(connectionString
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-builder.Services.AddScoped<IPricingService, PricingService>(); 
+builder.Services.AddScoped<IPricingService, PricingService>();
+builder.Services.AddScoped<IOrderService, OrderService>();
+builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+builder.Services.AddScoped<IMenuRepository, MenuRepository>();
 
 var app = builder.Build();
 

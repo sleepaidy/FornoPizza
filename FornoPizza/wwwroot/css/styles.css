@@ -468,6 +468,91 @@ body {
   font-size: 0.92rem;
 }
 
+/* Страница успеха заказа */
+.success-page {
+  padding: 0 6vw 3rem;
+}
+
+.success-hero {
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: 2rem;
+  align-items: stretch;
+  min-height: calc(100vh - 8rem);
+}
+
+.success-copy {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 34rem;
+  animation: rise 0.7s ease both;
+}
+
+.success-eyebrow {
+  animation: rise 0.7s ease both;
+}
+
+.success-brand {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(3.2rem, 8vw, 5.5rem);
+  line-height: 0.92;
+  letter-spacing: 0.04em;
+  color: var(--ink);
+  animation: rise 0.75s ease 0.05s both;
+}
+
+.success-title {
+  margin: 0.85rem 0 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 3.5vw, 2.2rem);
+  font-weight: 700;
+  line-height: 1.15;
+  color: var(--leaf);
+  animation: rise 0.75s ease 0.1s both;
+}
+
+.success-lead {
+  animation: rise 0.75s ease 0.15s both;
+}
+
+.success-order-label {
+  margin: 1.75rem 0 0.35rem;
+  color: var(--muted);
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  animation: rise 0.75s ease 0.2s both;
+}
+
+.success-order-id {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(2.4rem, 5vw, 3.4rem);
+  color: var(--tomato);
+  letter-spacing: 0.02em;
+  animation: rise 0.8s ease 0.25s both;
+}
+
+.success-actions {
+  margin-top: 1.75rem;
+  animation: rise 0.8s ease 0.3s both;
+}
+
+.success-visual {
+  border-radius: var(--radius);
+  background:
+    linear-gradient(160deg, rgba(28, 36, 32, 0.15), rgba(28, 36, 32, 0.45)),
+    url("https://images.unsplash.com/photo-1574071318508-1cdbab80d002?auto=format&fit=crop&w=1200&q=80") center / cover;
+  box-shadow: var(--shadow);
+  min-height: 320px;
+  animation: rise 0.9s ease 0.12s both;
+}
+
 @keyframes rise {
   from { opacity: 0; transform: translateY(18px) scale(0.98); }
   to { opacity: 1; transform: none; }
@@ -478,13 +563,16 @@ body {
   .checkout,
   .pizza-grid,
   .build-grid,
-  .form-grid {
+  .form-grid,
+  .success-hero {
     grid-template-columns: 1fr;
   }
 
   .nav { display: none; }
   .hero { min-height: auto; padding-top: 0.5rem; }
-  .hero-visual { min-height: 280px; }
+  .hero-visual,
+  .success-visual { min-height: 280px; }
+  .success-hero { min-height: auto; }
 }
 
 @media (prefers-reduced-motion: reduce) {

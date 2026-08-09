@@ -1,0 +1,34 @@
+@model int
+@{
+    ViewData["Title"] = "FORNO — заказ принят";
+}
+
+<header class="top">
+    <a class="logo" asp-controller="Home" asp-action="Index">FORNO</a>
+    <a class="top-cta" asp-controller="Home" asp-action="Index">На главную</a>
+</header>
+
+<main class="success-page">
+    <section class="success-hero">
+        <div class="success-copy">
+            <p class="eyebrow success-eyebrow">Заказ в печи</p>
+            <p class="success-brand">FORNO</p>
+            <h1 class="success-title">Приняли ваш заказ</h1>
+            <p class="lead success-lead">Готовим и везём. Номер заказа сохраните — по нему можно уточнить статус.</p>
+
+            <p class="success-order-label">Номер заказа</p>
+            <p class="success-order-id">№ @Model</p>
+
+            <div class="hero-actions success-actions">
+                <a class="btn btn-primary" asp-controller="Home" asp-action="Index">Новый заказ</a>
+                <a class="btn btn-ghost" asp-controller="Home" asp-action="Index">На главную</a>
+            </div>
+        </div>
+        <div class="success-visual" role="img" aria-label="Пицца из печи FORNO"></div>
+    </section>
+</main>
+
+<footer class="footer">
+    <span>FORNO · пицца из настоящей печи</span>
+    <span>Ежедневно 11:00–23:00</span>
+</footer>

@@ -10,13 +10,6 @@
         return;
     }
 
-    const pizzaNames = {
-        "1": "Маргарита",
-        "2": "Пепперони",
-        "3": "Грибная",
-        "4": "Четыре сыра"
-    };
-
     const sizeLabels = {
         Small: "25 см",
         Medium: "30 см",
@@ -29,17 +22,13 @@
         CheeseFilledCrust: "С сырным бортом"
     };
 
-    const toppingNames = {
-        "1": "Моцарелла",
-        "2": "Бекон",
-        "3": "Халапеньо",
-        "4": "Оливки",
-        "5": "Грибы",
-        "6": "Соус барбекю"
-    };
-
     /** @type {{ pizzaId: string, size: string, dough: string, toppingIds: string[], quantity: string }[]} */
     let items = [];
+
+    function labelFromDraft(name, value, fallback) {
+        const el = form.querySelector(`[name="${name}"][value="${value}"]`);
+        return (el && el.dataset.name) || fallback;
+    }
 
     function selectedValue(name) {
         const el = form.querySelector(`[name="${name}"]:checked`);
@@ -65,11 +54,11 @@
     }
 
     function formatItem(item) {
-        const pizza = pizzaNames[item.pizzaId] || ("Пицца #" + item.pizzaId);
+        const pizza = labelFromDraft("draft.PizzaId", item.pizzaId, "Пицца #" + item.pizzaId);
         const size = sizeLabels[item.size] || item.size;
         const dough = doughLabels[item.dough] || item.dough;
         const toppings = item.toppingIds.length
-            ? item.toppingIds.map((id) => toppingNames[id] || ("#" + id)).join(", ")
+            ? item.toppingIds.map((id) => labelFromDraft("draft.ToppingIds", id, "#" + id)).join(", ")
             : "без добавок";
 
         return {

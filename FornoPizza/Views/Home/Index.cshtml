@@ -1,4 +1,5 @@
-﻿@model FornoPizza.Models.Home.CreateOrderViewModel
+﻿@model FornoPizza.Models.Home.IndexViewModel
+
 @{
     ViewData["Title"] = "FORNO — заказ пиццы";
 }
@@ -42,45 +43,26 @@
             </div>
 
             <div class="pizza-grid">
-                <label class="pizza-card">
-                    <input type="radio" name="draft.PizzaId" value="1" required checked />
-                    <span class="pizza-media m1"></span>
-                    <span class="pizza-body">
-                        <span class="pizza-name">Маргарита</span>
-                        <span class="pizza-desc">Томаты, моцарелла, базилик</span>
-                        <span class="pizza-price">от 490 ₽</span>
-                    </span>
-                </label>
-
-                <label class="pizza-card">
-                    <input type="radio" name="draft.PizzaId" value="2" />
-                    <span class="pizza-media m2"></span>
-                    <span class="pizza-body">
-                        <span class="pizza-name">Пепперони</span>
-                        <span class="pizza-desc">Острая колбаса, сыр, томатный соус</span>
-                        <span class="pizza-price">от 590 ₽</span>
-                    </span>
-                </label>
-
-                <label class="pizza-card">
-                    <input type="radio" name="draft.PizzaId" value="3" />
-                    <span class="pizza-media m3"></span>
-                    <span class="pizza-body">
-                        <span class="pizza-name">Грибная</span>
-                        <span class="pizza-desc">Шампиньоны, сливки, трюфельное масло</span>
-                        <span class="pizza-price">от 620 ₽</span>
-                    </span>
-                </label>
-
-                <label class="pizza-card">
-                    <input type="radio" name="draft.PizzaId" value="4" />
-                    <span class="pizza-media m4"></span>
-                    <span class="pizza-body">
-                        <span class="pizza-name">Четыре сыра</span>
-                        <span class="pizza-desc">Моцарелла, горгонзола, пармезан, чеддер</span>
-                        <span class="pizza-price">от 650 ₽</span>
-                    </span>
-                </label>
+                @{
+                    var isFirstPizza = true;
+                }
+                @foreach (var pizza in Model.Pizzas)
+                {
+                    <label class="pizza-card">
+                        <input type="radio"
+                               name="draft.PizzaId"
+                               value="@pizza.Id"
+                               data-name="@pizza.Name"
+                               @(isFirstPizza ? "checked required" : null) />
+                        <span class="pizza-media" style="background-image: url('@pizza.ImageUrl')"></span>
+                        <span class="pizza-body">
+                            <span class="pizza-name">@pizza.Name</span>
+                            <span class="pizza-desc">@pizza.Ingredients</span>
+                            <span class="pizza-price">от @pizza.Price.ToString("0") ₽</span>
+                        </span>
+                    </label>
+                    isFirstPizza = false;
+                }
             </div>
         </section>
 
@@ -133,36 +115,17 @@
                 <fieldset class="field-block field-block--wide">
                     <legend>Добавки</legend>
                     <div class="toppings">
-                        <label class="topping">
-                            <input type="checkbox" name="draft.ToppingIds" value="1" />
-                            <span>Моцарелла</span>
-                            <em>+70 ₽</em>
-                        </label>
-                        <label class="topping">
-                            <input type="checkbox" name="draft.ToppingIds" value="2" />
-                            <span>Бекон</span>
-                            <em>+90 ₽</em>
-                        </label>
-                        <label class="topping">
-                            <input type="checkbox" name="draft.ToppingIds" value="3" />
-                            <span>Халапеньо</span>
-                            <em>+50 ₽</em>
-                        </label>
-                        <label class="topping">
-                            <input type="checkbox" name="draft.ToppingIds" value="4" />
-                            <span>Оливки</span>
-                            <em>+60 ₽</em>
-                        </label>
-                        <label class="topping">
-                            <input type="checkbox" name="draft.ToppingIds" value="5" />
-                            <span>Грибы</span>
-                            <em>+70 ₽</em>
-                        </label>
-                        <label class="topping">
-                            <input type="checkbox" name="draft.ToppingIds" value="6" />
-                            <span>Соус барбекю</span>
-                            <em>+40 ₽</em>
-                        </label>
+                        @foreach (var topping in Model.Toppings)
+                        {
+                            <label class="topping">
+                                <input type="checkbox"
+                                       name="draft.ToppingIds"
+                                       value="@topping.Id"
+                                       data-name="@topping.Name" />
+                                <span>@topping.Name</span>
+                                <em>+@topping.Price.ToString("0") ₽</em>
+                            </label>
+                        }
                     </div>
                 </fieldset>
 
