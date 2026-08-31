@@ -553,6 +553,158 @@ body {
   animation: rise 0.9s ease 0.12s both;
 }
 
+.kitchen-page {
+  padding: 0 6vw 3rem;
+}
+
+.kitchen-hero {
+  max-width: 40rem;
+  margin-bottom: 1.5rem;
+  animation: rise 0.7s ease both;
+}
+
+.kitchen-hero h1 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 7vw, 5rem);
+  line-height: 0.92;
+}
+
+.kitchen-lead {
+  margin-bottom: 0.75rem;
+}
+
+.kitchen-count {
+  margin: 0;
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.kitchen-count strong {
+  color: var(--tomato);
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+}
+
+.kitchen-empty {
+  animation: rise 0.75s ease both;
+}
+
+.kitchen-empty h2 {
+  margin: 0 0 0.4rem;
+  font-family: var(--font-display);
+}
+
+.kitchen-empty p {
+  margin: 0;
+  color: var(--muted);
+}
+
+.kitchen-queue {
+  display: grid;
+  gap: 1rem;
+}
+
+.kitchen-card {
+  animation: rise 0.7s ease both;
+}
+
+.kitchen-card__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 1.1rem;
+}
+
+.kitchen-card__num {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.7rem;
+}
+
+.kitchen-card__time {
+  margin: 0.25rem 0 0;
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+.kitchen-status {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  padding: 0.4rem 0.85rem;
+  font-weight: 700;
+  font-size: 0.85rem;
+  white-space: nowrap;
+  background: rgba(47, 107, 79, 0.12);
+  color: var(--leaf);
+}
+
+.kitchen-status--new {
+  background: rgba(214, 69, 43, 0.12);
+  color: var(--tomato-deep);
+}
+
+.kitchen-status--confirmed {
+  background: rgba(47, 107, 79, 0.14);
+  color: var(--leaf);
+}
+
+.kitchen-status--cooking {
+  background: rgba(214, 69, 43, 0.16);
+  color: var(--tomato-deep);
+}
+
+.kitchen-status--ontheway {
+  background: rgba(28, 36, 32, 0.1);
+  color: var(--ink);
+}
+
+.kitchen-meta {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+  gap: 0.85rem 1.25rem;
+  margin: 0;
+}
+
+.kitchen-meta dt {
+  margin: 0 0 0.2rem;
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.kitchen-meta dd {
+  margin: 0;
+  font-weight: 600;
+}
+
+.kitchen-comment {
+  margin: 1rem 0 0;
+  padding-top: 0.9rem;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+}
+
+.kitchen-error {
+  margin: 0.85rem 0 0;
+  color: var(--tomato-deep);
+  font-weight: 600;
+}
+
+.kitchen-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1.15rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--line);
+}
+
 @keyframes rise {
   from { opacity: 0; transform: translateY(18px) scale(0.98); }
   to { opacity: 1; transform: none; }

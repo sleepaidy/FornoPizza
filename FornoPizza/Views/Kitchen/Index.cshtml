@@ -1,0 +1,134 @@
+﻿@using FornoPizza.Data.Enums
+@using FornoPizza.Models.Kitchen
+@model List<KitchenOrderViewModel>
+@{
+    ViewData["Title"] = "FORNO — кухня";
+
+    string StatusLabel(OrderStatus status) => status switch
+    {
+        OrderStatus.New => "Новый",
+        OrderStatus.Confirmed => "Подтверждён",
+        OrderStatus.Cooking => "Готовится",
+        OrderStatus.OnTheWay => "В пути",
+        OrderStatus.Delivered => "Доставлен",
+        OrderStatus.Canceled => "Отменён",
+        _ => status.ToString()
+    };
+
+    string PaymentLabel(PaymentMethod method) => method switch
+    {
+        PaymentMethod.Card => "Картой курьеру",
+        PaymentMethod.Cash => "Наличными",
+        PaymentMethod.Online => "Онлайн",
+        _ => method.ToString()
+    };
+
+    string NextActionLabel(OrderStatus next) => next switch
+    {
+        OrderStatus.Confirmed => "Подтвердить",
+        OrderStatus.Cooking => "Начать готовить",
+        OrderStatus.OnTheWay => "Передать курьеру",
+        OrderStatus.Delivered => "Доставлен",
+        _ => "Дальше"
+    };
+}
+
+<header class="top">
+    <a class="logo" asp-controller="Home" asp-action="Index">FORNO</a>
+    <nav class="nav">
+        <a asp-controller="Home" asp-action="Index">На сайт</a>
+        <a asp-controller="Kitchen" asp-action="Index">Кухня</a>
+    </nav>
+    <a class="top-cta" asp-controller="Home" asp-action="Index">На главную</a>
+</header>
+
+<main class="kitchen-page">
+    <section class="kitchen-hero">
+        <p class="eyebrow">Только для смены</p>
+        <h1>Кухня</h1>
+        <p class="lead kitchen-lead">Живая очередь: новые и текущие заказы. Доставленные и отменённые сюда не попадают.</p>
+        <p class="kitchen-count">В работе: <strong>@Model.Count</strong></p>
+        @if (TempData["KitchenError"] is string kitchenError)
+        {
+            <p class="kitchen-error">@kitchenError</p>
+        }
+    </section>
+
+    @if (Model.Count == 0)
+    {
+        <section class="panel kitchen-empty">
+            <h2>Очередь пуста</h2>
+            <p>Новых заказов нет — можно перевести дух у печи.</p>
+        </section>
+    }
+    else
+    {
+        <div class="kitchen-queue">
+            @foreach (var card in Model)
+            {
+                var order = card.Order;
+                <article class="panel kitchen-card">
+                    <div class="kitchen-card__head">
+                        <div>
+                            <p class="kitchen-card__num">№ @order.Id</p>
+                            <p class="kitchen-card__time">@order.DateOfOrder.ToLocalTime().ToString("dd.MM.yyyy, HH:mm")</p>
+                        </div>
+                        <span class="kitchen-status kitchen-status--@order.Status.ToString().ToLowerInvariant()">
+                            @StatusLabel(order.Status)
+                        </span>
+                    </div>
+
+                    <dl class="kitchen-meta">
+                        <div>
+                            <dt>Клиент</dt>
+                            <dd>@(order.Client?.Name ?? "—")</dd>
+                        </div>
+                        <div>
+                            <dt>Телефон</dt>
+                            <dd>@(order.Client?.TelephoneNumber ?? "—")</dd>
+                        </div>
+                        <div>
+                            <dt>Адрес</dt>
+                            <dd>@(order.Client?.Address ?? "—")</dd>
+                        </div>
+                        <div>
+                            <dt>Оплата</dt>
+                            <dd>@PaymentLabel(order.PaymentMethod)</dd>
+                        </div>
+                        <div>
+                            <dt>Сумма</dt>
+                            <dd>@order.FinalPrice.ToString("0") ₽</dd>
+                        </div>
+                    </dl>
+
+                    @if (!string.IsNullOrWhiteSpace(order.Comment))
+                    {
+                        <p class="kitchen-comment">@order.Comment</p>
+                    }
+
+                    <div class="kitchen-actions">
+                        @if (card.NextStatus is OrderStatus nextStatus)
+                        {
+                            <form asp-controller="Kitchen" asp-action="Advance" method="post">
+                                <input type="hidden" name="id" value="@order.Id" />
+                                <button class="btn btn-primary" type="submit">@NextActionLabel(nextStatus)</button>
+                            </form>
+                        }
+                        @if (card.CanCancel)
+                        {
+                            <form asp-controller="Kitchen" asp-action="Cancel" method="post">
+                                <input type="hidden" name="id" value="@order.Id" />
+                                <button class="btn btn-ghost" type="submit">Отменить</button>
+                            </form>
+                        }
+                    </div>
+                </article>
+            }
+        </div>
+    }
+</main>
+
+<footer class="footer">
+    <span>FORNO · кухня</span>
+    <span>Ежедневно 11:00–23:00</span>
+</footer>
