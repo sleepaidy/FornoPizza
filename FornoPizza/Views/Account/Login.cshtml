@@ -1,0 +1,49 @@
+@model FornoPizza.Models.Auth.LoginViewModel
+@{
+    ViewData["Title"] = "FORNO — вход";
+}
+
+<header class="top">
+    <a class="logo" asp-controller="Home" asp-action="Index">FORNO</a>
+    <a class="top-cta" asp-controller="Home" asp-action="Index">На главную</a>
+</header>
+
+<main class="auth-page">
+    <section class="auth-layout">
+        <div class="auth-copy">
+            <p class="eyebrow">Для своих</p>
+            <p class="success-brand">FORNO</p>
+            <h1 class="success-title">Вход</h1>
+            <p class="lead">Войдите, чтобы видеть свои заказы и — если вы на смене — очередь кухни.</p>
+        </div>
+
+        <section class="panel auth-card">
+            <form asp-controller="Account" asp-action="Login" method="post" class="auth-form">
+                <div asp-validation-summary="ModelOnly" class="auth-error"></div>
+
+                <label class="input">
+                    <span>Логин</span>
+                    <input asp-for="Login" autocomplete="username" />
+                    <span asp-validation-for="Login" class="auth-field-error"></span>
+                </label>
+
+                <label class="input">
+                    <span>Пароль</span>
+                    <input asp-for="Password" type="password" autocomplete="current-password" />
+                    <span asp-validation-for="Password" class="auth-field-error"></span>
+                </label>
+
+                <button class="btn btn-primary btn-block" type="submit">Войти</button>
+                <p class="auth-switch">
+                    Нет аккаунта?
+                    <a asp-controller="Account" asp-action="Registration">Регистрация</a>
+                </p>
+            </form>
+        </section>
+    </section>
+</main>
+
+<footer class="footer">
+    <span>FORNO · пицца из настоящей печи</span>
+    <span>Ежедневно 11:00–23:00</span>
+</footer>

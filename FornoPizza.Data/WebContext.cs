@@ -11,6 +11,7 @@ namespace FornoPizza.Data
         public DbSet<ToppingData> Toppings { get; set; }
         public DbSet<OrderToppingData> OrderToppings { get; set; }
         public DbSet<OrderItemData> OrderItems { get; set; }
+        public DbSet<UserData> Users { get; set; }
 
         public WebContext(DbContextOptions<WebContext> options) : base(options) { }
 
@@ -125,7 +126,13 @@ namespace FornoPizza.Data
                 entity.Property(x => x.PizzaPriceInOrder)
                 .HasPrecision(18, 2);
             });
+            
+            modelBuilder.Entity<UserData>(entity =>
+            {
+                entity.HasIndex(x => x.Name).IsUnique();
+            });
 
         }
     }
 }
+
