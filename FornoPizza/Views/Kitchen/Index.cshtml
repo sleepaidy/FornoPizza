@@ -33,14 +33,7 @@
     };
 }
 
-<header class="top">
-    <a class="logo" asp-controller="Home" asp-action="Index">FORNO</a>
-    <nav class="nav">
-        <a asp-controller="Home" asp-action="Index">На сайт</a>
-        <a asp-controller="Kitchen" asp-action="Index">Кухня</a>
-    </nav>
-    <a class="top-cta" asp-controller="Home" asp-action="Index">На главную</a>
-</header>
+@await Html.PartialAsync("_SiteHeader")
 
 <main class="kitchen-page">
     <section class="kitchen-hero">

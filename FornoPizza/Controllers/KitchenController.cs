@@ -2,10 +2,12 @@
 using FornoPizza.Data.Repository.Interfaces;
 using FornoPizza.Models.Kitchen;
 using FornoPizza.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FornoPizza.Controllers
 {
+    [Authorize(Roles = "Kitchen")]
     public class KitchenController : Controller
     {
         private readonly IOrderRepository _orderRepository;

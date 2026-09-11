@@ -3,10 +3,7 @@
     ViewData["Title"] = "FORNO — заказ принят";
 }
 
-<header class="top">
-    <a class="logo" asp-controller="Home" asp-action="Index">FORNO</a>
-    <a class="top-cta" asp-controller="Home" asp-action="Index">На главную</a>
-</header>
+@await Html.PartialAsync("_SiteHeader")
 
 <main class="success-page">
     <section class="success-hero">
