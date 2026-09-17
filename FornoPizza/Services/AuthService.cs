@@ -36,5 +36,19 @@ namespace FornoPizza.Services
             await _httpContextAccessor.HttpContext!
                 .SignInAsync(AUTH_KEY, principal);
         }
+
+        public int? GetCurrentUserId()
+        {
+            if (_httpContextAccessor.HttpContext?.User?.Identity?.IsAuthenticated != true)
+            {
+                return null;
+            }
+            var userIdClaim = _httpContextAccessor.HttpContext?.User?.FindFirst(COOKIE_ID_KEY); 
+            if (userIdClaim != null && int.TryParse(userIdClaim.Value, out int userId))
+            {
+                return userId;
+            }
+            return null;
+        }
     }
 }

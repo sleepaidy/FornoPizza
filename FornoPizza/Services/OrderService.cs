@@ -10,11 +10,13 @@ namespace FornoPizza.Services
     {
         private readonly IOrderRepository _orderRepository;
         private readonly IPricingService _pricingService;
+        private readonly IAuthService _authService;
 
-        public OrderService(IPricingService pricingService, IOrderRepository orderRepository)
+        public OrderService(IPricingService pricingService, IOrderRepository orderRepository, IAuthService authService)
         {
             _pricingService = pricingService;
             _orderRepository = orderRepository;
+            _authService = authService;
         }
 
         public int CreateOrder(CreateOrderViewModel createOrderViewModel)
@@ -55,7 +57,8 @@ namespace FornoPizza.Services
                 FinalPrice = orderTotal,
                 PaymentMethod = createOrderViewModel.PaymentMethod,
                 Comment = createOrderViewModel.Comment,
-                Client = client
+                Client = client,
+                UserId = _authService.GetCurrentUserId()
             };
 
             for (int i = 0; i < lines.Count; i++)
@@ -76,7 +79,7 @@ namespace FornoPizza.Services
                 orderData.OrderItems.Add(orderItem);
                 foreach (var t in line.OrderToppings)
                 {
-                    var orderTopping = new OrderToppingData 
+                    var orderTopping = new OrderToppingData
                     {
                         ToppingId = t.ToppingId,
                         ToppingName = t.ToppingName,
@@ -88,6 +91,17 @@ namespace FornoPizza.Services
 
             _orderRepository.CreateOrder(orderData);
             return orderData.Id;
+        }
+
+        public List<OrderData> GetMyOrders()
+        {
+            if (_authService.GetCurrentUserId() == null)
+            {
+                return new List<OrderData>();
+            }
+            var userId = _authService.GetCurrentUserId();
+
+            return _orderRepository.GetByUserId(userId.Value);
         }
     }
 }

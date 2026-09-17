@@ -8,5 +8,6 @@ namespace FornoPizza.Data.Repository.Interfaces
         public void Update(OrderData orderData);
         public OrderData? GetById(int id);
         public List<OrderData> GetActiveOrders();
+        public List<OrderData> GetByUserId(int userId);
     }
 }

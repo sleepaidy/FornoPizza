@@ -49,5 +49,19 @@ namespace FornoPizza.Data.Repository
                 .OrderBy(x => x.DateOfOrder)
                 .ToList();
         }
+
+        public List<OrderData> GetByUserId(int userId)
+        {
+            if (userId <= 0)
+            {
+                return new List<OrderData>();
+            }
+            var orders = _webContext.Orders;
+            return orders
+                .Include(x => x.OrderItems)
+                .Where(x => x.UserId == userId)
+                .OrderByDescending(x => x.DateOfOrder)
+                .ToList();
+        }
     }
 }
