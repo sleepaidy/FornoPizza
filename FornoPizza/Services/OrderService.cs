@@ -95,11 +95,12 @@ namespace FornoPizza.Services
 
         public List<OrderData> GetMyOrders()
         {
-            if (_authService.GetCurrentUserId() == null)
+            var userId = _authService.GetCurrentUserId();
+
+            if (userId is null)
             {
                 return new List<OrderData>();
             }
-            var userId = _authService.GetCurrentUserId();
 
             return _orderRepository.GetByUserId(userId.Value);
         }

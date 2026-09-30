@@ -11,6 +11,7 @@
         @if (User.Identity?.IsAuthenticated == true)
         {
             <span class="top-user">@User.Identity.Name</span>
+            <a class="top-cta" asp-controller="Home" asp-action="MyOrders">Мои заказы</a>
             <form asp-controller="Account" asp-action="LogOut" method="post" class="top-logout">
                 <button class="btn btn-ghost top-logout__btn" type="submit">Выйти</button>
             </form>

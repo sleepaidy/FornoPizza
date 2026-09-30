@@ -14,11 +14,15 @@ namespace FornoPizza.Controllers
     {
         private readonly IUserRepository _userRepository;
         private readonly IAuthService _authService;
+        private readonly IWebHostEnvironment _webHostEnvironment;
+        private const string KITCHEN_NAME = "NameOfYourKithen";
+        private const string KITCHEN_PASS = "PassForYourKithen";
 
-        public AccountController(IUserRepository userRepository, IAuthService authService)
+        public AccountController(IUserRepository userRepository, IAuthService authService, IWebHostEnvironment webHostEnvironment)
         {
             _userRepository = userRepository;
             _authService = authService;
+            _webHostEnvironment = webHostEnvironment;
         }
 
         [HttpGet]
@@ -112,6 +116,35 @@ namespace FornoPizza.Controllers
         {
             await HttpContext.SignOutAsync(AuthService.AUTH_KEY);
             return RedirectToAction(nameof(Login));
+        }
+
+        public async Task<IActionResult> CreateKitchen()
+        {
+            if (!_webHostEnvironment.IsDevelopment())
+            {
+                return NotFound();
+            }
+            if (!_userRepository.IsNameUniq(KITCHEN_NAME))
+            {
+                var user = _userRepository.GetByNameAndPassword(KITCHEN_NAME, KITCHEN_PASS);
+               if (user == null)
+                {
+                    return BadRequest("Pass is not correct");
+                }
+
+                await _authService.SignInAsync(user);
+                return RedirectToAction("Index", "Kitchen");
+            }
+            var userData = new UserData
+            {
+                Name = KITCHEN_NAME,
+                Password = KITCHEN_PASS,
+                Role = Role.Kitchen
+            };
+            _userRepository.Registration(userData);
+            await _authService.SignInAsync(userData);
+            return RedirectToAction("Index", "Kitchen");
+
         }
     }
 }

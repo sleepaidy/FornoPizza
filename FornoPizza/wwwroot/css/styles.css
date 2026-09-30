@@ -684,6 +684,16 @@ body {
   color: var(--ink);
 }
 
+.kitchen-status--delivered {
+  background: rgba(47, 107, 79, 0.18);
+  color: var(--leaf);
+}
+
+.kitchen-status--canceled {
+  background: rgba(93, 107, 99, 0.16);
+  color: var(--muted);
+}
+
 .kitchen-meta {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
