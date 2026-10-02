@@ -6,6 +6,6 @@ namespace FornoPizza.Services.Interfaces
     {
         public bool CanTransition(OrderStatus current, OrderStatus next);
         public IReadOnlyList<OrderStatus> GetAllowedNext(OrderStatus current);
-        public void ChangeStatus(int orderId, OrderStatus next);
+        public Task ChangeStatus(int orderId, OrderStatus next);
     }
 }

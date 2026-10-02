@@ -40,7 +40,7 @@ namespace FornoPizza.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Advance(int id)
+        public async Task<IActionResult> AdvanceAsync(int id)
         {
             try
             {
@@ -59,7 +59,7 @@ namespace FornoPizza.Controllers
                     throw new InvalidOperationException("Нет следующего статуса.");
                 }
 
-                _orderStatusService.ChangeStatus(id, nextCandidates[0]);
+                await _orderStatusService.ChangeStatus(id, nextCandidates[0]);
             }
             catch (InvalidOperationException)
             {
@@ -71,11 +71,11 @@ namespace FornoPizza.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Cancel(int id)
+        public async Task<IActionResult> CancelAsync(int id)
         {
             try
             {
-                _orderStatusService.ChangeStatus(id, OrderStatus.Canceled);
+                await _orderStatusService.ChangeStatus(id, OrderStatus.Canceled);
             }
             catch (InvalidOperationException)
             {

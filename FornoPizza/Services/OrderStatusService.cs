@@ -1,6 +1,9 @@
 ﻿using FornoPizza.Data.Enums;
 using FornoPizza.Data.Repository.Interfaces;
+using FornoPizza.Hubs;
+using FornoPizza.Hubs.Interfaces;
 using FornoPizza.Services.Interfaces;
+using Microsoft.AspNetCore.SignalR;
 
 namespace FornoPizza.Services
 {
@@ -8,10 +11,12 @@ namespace FornoPizza.Services
     {
 
         private readonly IOrderRepository _orderRepository;
+        private readonly IHubContext<OrderHub, IOrderHub> _hubContext;
 
-        public OrderStatusService(IOrderRepository orderRepository)
+        public OrderStatusService(IOrderRepository orderRepository, IHubContext<OrderHub, IOrderHub> hubContext)
         {
             _orderRepository = orderRepository;
+            _hubContext = hubContext;
         }
 
         public bool CanTransition(OrderStatus current, OrderStatus next)
@@ -46,7 +51,7 @@ namespace FornoPizza.Services
 
         }
 
-        public void ChangeStatus(int orderId, OrderStatus next)
+        public async Task ChangeStatus(int orderId, OrderStatus next)
         {
             if (orderId <= 0)
             {
@@ -63,6 +68,11 @@ namespace FornoPizza.Services
             }
             order.Status = next;
             _orderRepository.Update(order);
+            if (order.UserId is int userId)
+            {
+                await _hubContext.Clients.User(userId.ToString())
+                    .OrderStatusChanged(order.Id, order.Status.ToString());
+            }
         }
     }
 }

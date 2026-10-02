@@ -62,7 +62,7 @@
         <div class="kitchen-queue">
             @foreach (var order in Model)
             {
-                <article class="panel kitchen-card">
+                <article class="panel kitchen-card" data-order-id="@order.Id">
                     <div class="kitchen-card__head">
                         <div>
                             <p class="kitchen-card__num">№ @order.Id</p>
@@ -114,3 +114,6 @@
     <span>FORNO · мои заказы</span>
     <span>Ежедневно 11:00–23:00</span>
 </footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/8.0.7/signalr.min.js"></script>
+<script src="~/js/order/my-orders.js" asp-append-version="true"></script>
