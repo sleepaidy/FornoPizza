@@ -1,247 +1,32 @@
 ﻿@model FornoPizza.Models.Home.IndexViewModel
 
 @{
-    ViewData["Title"] = "FORNO — заказ пиццы";
+    ViewData["Title"] = Shared.Page_Title;
 }
 
-
-<header class="top">
-    <a class="logo" asp-controller="Home" asp-action="Index">FORNO</a>
-    <nav class="nav">
-        <a href="#menu">Меню</a>
-        <a href="#build">Сборка</a>
-        <a href="#cart">Корзина</a>
-        <a href="#order">Заказ</a>
-    </nav>
-    <a class="top-cta" href="#order">К оформлению</a>
-</header>
+@await Html.PartialAsync("_SiteHeader")
 
 <main>
     <section class="hero">
         <div class="hero-copy">
-            <p class="eyebrow">Доставка за 35 минут</p>
+            <p class="eyebrow">@Shared.Hero_Eyebrow</p>
             <h1>FORNO</h1>
-            <p class="lead">Выберите пиццу, соберите её под себя и оформите заказ в несколько шагов.</p>
+            <p class="lead">@Shared.Hero_Lead</p>
             <div class="hero-actions">
-                <a class="btn btn-primary" href="#menu">Выбрать пиццу</a>
-                <a class="btn btn-ghost" href="#build">Собрать свою</a>
+                <a class="btn btn-primary" href="#menu">@Shared.Hero_Choose</a>
+                <a class="btn btn-ghost" href="#build">@Shared.Hero_Build</a>
             </div>
         </div>
-        <div class="hero-visual" role="img" aria-label="Пицца из печи"></div>
+        <div class="hero-visual" role="img" aria-label="@Shared.Hero_ImageAlt"></div>
     </section>
-
-    <form class="order-flow" asp-controller="Home" asp-action="CreateOrder" method="post">
-        <div id="cart-fields" hidden></div>
-
-        <section class="panel" id="menu">
-            <div class="step-head">
-                <span class="step-num">01</span>
-                <div>
-                    <h2>Выберите пиццу</h2>
-                    <p>Соберите позицию и добавьте её в корзину — можно несколько разных.</p>
-                </div>
-            </div>
-
-            <div class="pizza-grid">
-                @{
-                    var isFirstPizza = true;
-                }
-                @foreach (var pizza in Model.Pizzas)
-                {
-                    <label class="pizza-card">
-                        <input type="radio"
-                               name="draft.PizzaId"
-                               value="@pizza.Id"
-                               data-name="@pizza.Name"
-                               @(isFirstPizza ? "checked required" : null) />
-                        <span class="pizza-media" style="background-image: url('@pizza.ImageUrl')"></span>
-                        <span class="pizza-body">
-                            <span class="pizza-name">@pizza.Name</span>
-                            <span class="pizza-desc">@pizza.Ingredients</span>
-                            <span class="pizza-price">от @pizza.Price.ToString("0") ₽</span>
-                        </span>
-                    </label>
-                    isFirstPizza = false;
-                }
-            </div>
-        </section>
-
-        <section class="panel" id="build">
-            <div class="step-head">
-                <span class="step-num">02</span>
-                <div>
-                    <h2>Соберите пиццу</h2>
-                    <p>Размер, тесто и добавки. Потом — «В корзину».</p>
-                </div>
-            </div>
-
-            <div class="build-grid">
-                <fieldset class="field-block">
-                    <legend>Размер</legend>
-                    <div class="chips">
-                        <label class="chip">
-                            <input type="radio" name="draft.Size" value="Small" />
-                            <span>25 см</span>
-                        </label>
-                        <label class="chip">
-                            <input type="radio" name="draft.Size" value="Medium" checked />
-                            <span>30 см · +120 ₽</span>
-                        </label>
-                        <label class="chip">
-                            <input type="radio" name="draft.Size" value="Big" />
-                            <span>35 см · +220 ₽</span>
-                        </label>
-                    </div>
-                </fieldset>
-
-                <fieldset class="field-block">
-                    <legend>Тесто</legend>
-                    <div class="chips">
-                        <label class="chip">
-                            <input type="radio" name="draft.Dough" value="Thin" checked />
-                            <span>Тонкое</span>
-                        </label>
-                        <label class="chip">
-                            <input type="radio" name="draft.Dough" value="Classic" />
-                            <span>Классическое</span>
-                        </label>
-                        <label class="chip">
-                            <input type="radio" name="draft.Dough" value="CheeseFilledCrust" />
-                            <span>С сырным бортом · +80 ₽</span>
-                        </label>
-                    </div>
-                </fieldset>
-
-                <fieldset class="field-block field-block--wide">
-                    <legend>Добавки</legend>
-                    <div class="toppings">
-                        @foreach (var topping in Model.Toppings)
-                        {
-                            <label class="topping">
-                                <input type="checkbox"
-                                       name="draft.ToppingIds"
-                                       value="@topping.Id"
-                                       data-name="@topping.Name" />
-                                <span>@topping.Name</span>
-                                <em>+@topping.Price.ToString("0") ₽</em>
-                            </label>
-                        }
-                    </div>
-                </fieldset>
-
-                <fieldset class="field-block">
-                    <legend>Количество</legend>
-                    <div class="chips">
-                        <label class="chip">
-                            <input type="radio" name="draft.Quantity" value="1" checked />
-                            <span>1</span>
-                        </label>
-                        <label class="chip">
-                            <input type="radio" name="draft.Quantity" value="2" />
-                            <span>2</span>
-                        </label>
-                        <label class="chip">
-                            <input type="radio" name="draft.Quantity" value="3" />
-                            <span>3</span>
-                        </label>
-                        <label class="chip">
-                            <input type="radio" name="draft.Quantity" value="4" />
-                            <span>4</span>
-                        </label>
-                        <label class="chip">
-                            <input type="radio" name="draft.Quantity" value="5" />
-                            <span>5</span>
-                        </label>
-                    </div>
-                </fieldset>
-            </div>
-
-            <div class="cart-actions">
-                <button class="btn btn-primary" type="button" id="add-to-cart">В корзину</button>
-            </div>
-        </section>
-
-        <section class="panel" id="cart">
-            <div class="step-head">
-                <span class="step-num">03</span>
-                <div>
-                    <h2>Корзина</h2>
-                    <p>Позиции, которые уйдут в заказ. Можно удалить лишнее.</p>
-                </div>
-            </div>
-
-            <p class="cart-empty" id="cart-empty">Пока пусто — соберите пиццу и нажмите «В корзину».</p>
-            <ul class="cart-list" id="cart-list"></ul>
-        </section>
-
-        <section class="panel checkout" id="order">
-            <div class="checkout-main">
-                <div class="step-head">
-                    <span class="step-num">04</span>
-                    <div>
-                        <h2>Куда доставить</h2>
-                        <p>Контакты и адрес для курьера.</p>
-                    </div>
-                </div>
-
-                <div class="form-grid">
-                    <label class="input">
-                        <span>Имя</span>
-                        <input type="text" name="ClientName" placeholder="Анна" required />
-                    </label>
-                    <label class="input">
-                        <span>Телефон</span>
-                        <input type="tel" name="ClientPhone" placeholder="+7 (___) ___-__-__" required />
-                    </label>
-                    <label class="input input--wide">
-                        <span>Адрес</span>
-                        <input type="text" name="ClientAddress" placeholder="Улица, дом, квартира" required />
-                    </label>
-                    <label class="input input--wide">
-                        <span>Комментарий</span>
-                        <textarea name="Comment" rows="3" placeholder="Домофон, этаж, пожелания к заказу"></textarea>
-                    </label>
-                </div>
-
-                <fieldset class="field-block">
-                    <legend>Оплата</legend>
-                    <div class="chips">
-                        <label class="chip">
-                            <input type="radio" name="PaymentMethod" value="Card" checked />
-                            <span>Картой курьеру</span>
-                        </label>
-                        <label class="chip">
-                            <input type="radio" name="PaymentMethod" value="Cash" />
-                            <span>Наличными</span>
-                        </label>
-                        <label class="chip">
-                            <input type="radio" name="PaymentMethod" value="Online" />
-                            <span>Онлайн</span>
-                        </label>
-                    </div>
-                </fieldset>
-            </div>
-
-            <aside class="summary" aria-labelledby="summary-title">
-                <div class="step-head step-head--compact">
-                    <span class="step-num">05</span>
-                    <h2 id="summary-title">Ваш заказ</h2>
-                </div>
-
-                <ul class="summary-list" id="cart-summary"></ul>
-
-                <p class="summary-note">Итоговую сумму посчитает сервер при оформлении (цены из БД, не с формы).</p>
-                <button class="btn btn-primary btn-block" type="submit">Заказать</button>
-            </aside>
-        </section>
-    </form>
+    <div id="root" data-culture="@System.Globalization.CultureInfo.CurrentUICulture.TwoLetterISOLanguageName"></div>
 </main>
 
 <footer class="footer">
-    <span>FORNO · пицца из настоящей печи</span>
-    <span>Ежедневно 11:00–23:00</span>
+    <span>@Shared.Footer_Brand</span>
+    <span>@Shared.Footer_Hours</span>
 </footer>
 
 @section Scripts {
-    <script src="~/js/order/cart.js" asp-append-version="true"></script>
+    <script type="module" src="~/menu/menu.js" asp-append-version="true"></script>
 }

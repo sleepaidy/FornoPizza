@@ -1,6 +1,7 @@
 ﻿using FornoPizza.Data;
 using FornoPizza.Data.Enums;
 using FornoPizza.Data.Models;
+using FornoPizza.Localization;
 using FornoPizza.Models.Dtos;
 using FornoPizza.Services.Interfaces;
 
@@ -64,7 +65,7 @@ namespace FornoPizza.Services
             var pizza = _webContext.Pizzas.FirstOrDefault(p => p.Id == pizzaId);
             if (pizza == null || pizza.IsAvailable == false)
             {
-                throw new InvalidOperationException("Пицца не найдена или недоступна.");
+                throw new InvalidOperationException(Shared.Error_Pizza);
             }
             var toppings = _webContext.Toppings.Where(x => toppingIds.Contains(x.Id) && x.IsAvailable == true).ToList();
             var sizePrice = GetSizePrice(size);
@@ -108,6 +109,28 @@ namespace FornoPizza.Services
                 sum += line.LinePrice;
             }
             return sum;
+        }
+
+        public decimal CalculatePromoDiscount(string promoCode, decimal totalPrice)
+        {
+            if (string.IsNullOrWhiteSpace(promoCode))
+            {
+                return 0;
+            }
+
+            var code = promoCode.Trim();
+            var promo = _webContext.PromoCodes.FirstOrDefault(p => p.Code == code);
+            if (promo == null || !promo.IsActive)
+            {
+                throw new InvalidOperationException(Shared.Error_Promo);
+            }
+
+            if (promo.DiscountValue > totalPrice)
+            {
+                return totalPrice;
+            }
+
+            return promo.DiscountValue;
         }
     }
 }

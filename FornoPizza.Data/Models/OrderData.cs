@@ -13,9 +13,14 @@ namespace FornoPizza.Data.Models
         [MaxLength(300)]
         public string? Comment { get; set; }
         public int ClientId { get; set; }
-        
+        public int? UserId { get; set; }
+        [MaxLength(20)]
+        public string? Code { get; set; }
+        public decimal DiscountValue { get; set; }
 
+        public virtual UserData? User { get; set; }
         public virtual ClientData? Client { get; set; }
         public virtual List<OrderItemData> OrderItems { get; set; } = new();
+
     }
 }

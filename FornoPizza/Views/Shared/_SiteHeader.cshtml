@@ -1,0 +1,25 @@
+﻿<header class="top">
+    <a class="logo" asp-controller="Home" asp-action="Index">FORNO</a>
+    <nav class="nav">
+        <a href="@Url.Action("Index", "Home")#menu">@Shared.Nav_Menu</a>
+        <a href="@Url.Action("Index", "Home")#build">@Shared.Nav_Build</a>
+        <a href="@Url.Action("Index", "Home")#order">@Shared.Nav_Order</a>
+        <a asp-controller="Kitchen" asp-action="Index">@Shared.Nav_Kitchen</a>
+    </nav>
+    <div class="top-auth">
+        @await Html.PartialAsync("_LanguageSwitch")
+        <a class="top-cta" href="@Url.Action("Index", "Home")#order">@Shared.Nav_Checkout</a>
+        @if (User.Identity?.IsAuthenticated == true)
+        {
+            <span class="top-user">@User.Identity.Name</span>
+            <a class="top-cta" asp-controller="Home" asp-action="MyOrders">@Shared.Nav_MyOrders</a>
+            <form asp-controller="Account" asp-action="LogOut" method="post" class="top-logout">
+                <button class="btn btn-ghost top-logout__btn" type="submit">@Shared.Nav_LogOut</button>
+            </form>
+        }
+        else
+        {
+            <a class="top-cta" asp-controller="Account" asp-action="Login">@Shared.Nav_LogIn</a>
+        }
+    </div>
+</header>

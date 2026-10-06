@@ -1,0 +1,58 @@
+@model FornoPizza.Models.Auth.RegisterViewModel
+@{
+    ViewData["Title"] = Auth.Register_Title;
+}
+
+<header class="top">
+    <a class="logo" asp-controller="Home" asp-action="Index">FORNO</a>
+    <div class="top-auth">
+        @await Html.PartialAsync("_LanguageSwitch")
+        <a class="top-cta" asp-controller="Home" asp-action="Index">@Auth.Nav_Home</a>
+    </div>
+</header>
+
+<main class="auth-page">
+    <section class="auth-layout">
+        <div class="auth-copy">
+            <p class="eyebrow">@Auth.Register_Eyebrow</p>
+            <p class="success-brand">FORNO</p>
+            <h1 class="success-title">@Auth.Register_Heading</h1>
+            <p class="lead">@Auth.Register_Lead</p>
+        </div>
+
+        <section class="panel auth-card">
+            <form asp-controller="Account" asp-action="Registration" method="post" class="auth-form">
+                <div asp-validation-summary="ModelOnly" class="auth-error"></div>
+
+                <label class="input">
+                    <span>@Auth.Register_Label_Login</span>
+                    <input asp-for="Login" autocomplete="username" />
+                    <span asp-validation-for="Login" class="auth-field-error"></span>
+                </label>
+
+                <label class="input">
+                    <span>@Auth.Register_Label_Password</span>
+                    <input asp-for="Password" type="password" autocomplete="new-password" />
+                    <span asp-validation-for="Password" class="auth-field-error"></span>
+                </label>
+
+                <label class="input">
+                    <span>@Auth.Register_Label_Confirm</span>
+                    <input asp-for="ConfirmPassword" type="password" autocomplete="new-password" />
+                    <span asp-validation-for="ConfirmPassword" class="auth-field-error"></span>
+                </label>
+
+                <button class="btn btn-primary btn-block" type="submit">@Auth.Register_Button</button>
+                <p class="auth-switch">
+                    @Auth.Register_Switch_Text
+                    <a asp-controller="Account" asp-action="Login">@Auth.Register_Switch_Link</a>
+                </p>
+            </form>
+        </section>
+    </section>
+</main>
+
+<footer class="footer">
+    <span>FORNO</span>
+    <span>@Shared.Footer_Hours</span>
+</footer>

@@ -11,6 +11,9 @@ namespace FornoPizza.Data
         public DbSet<ToppingData> Toppings { get; set; }
         public DbSet<OrderToppingData> OrderToppings { get; set; }
         public DbSet<OrderItemData> OrderItems { get; set; }
+        public DbSet<UserData> Users { get; set; }
+        public DbSet<AddressData> Addresses { get; set; }
+        public DbSet<PromoCodeData> PromoCodes { get; set; }
 
         public WebContext(DbContextOptions<WebContext> options) : base(options) { }
 
@@ -56,7 +59,7 @@ namespace FornoPizza.Data
                         Id = 4,
                         Name = "Четыре сыра",
                         Ingredients = "Моцарелла, горгонзола, пармезан, чеддер",
-                        ImageUrl = "https://images.unsplash.com/photo-1548365328-9f68587ace8e?auto=format&fit=crop&w=800&q=80",
+                        ImageUrl = "https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=800&q=80",
                         Price = 650,
                         IsAvailable = true
                     });
@@ -116,6 +119,8 @@ namespace FornoPizza.Data
             {
                 entity.Property(x => x.FinalPrice)
                 .HasPrecision(18, 2);
+                entity.Property(x => x.DiscountValue)
+                .HasPrecision(18, 2);
             });
             modelBuilder.Entity<OrderItemData>(entity =>
             {
@@ -125,7 +130,38 @@ namespace FornoPizza.Data
                 entity.Property(x => x.PizzaPriceInOrder)
                 .HasPrecision(18, 2);
             });
+            
+            modelBuilder.Entity<UserData>(entity =>
+            {
+                entity.HasIndex(x => x.Name).IsUnique();
+            });
+
+            modelBuilder.Entity<AddressData>(entity =>
+            {
+                entity.HasOne(x => x.User)
+                .WithMany(x => x.Addresses)
+                .HasForeignKey(x => x.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
+            });
+
+            modelBuilder.Entity<PromoCodeData>(entity =>
+            {
+                entity.Property(x => x.DiscountValue)
+                .HasPrecision(18, 2);
+                entity.HasIndex(x => x.Code).IsUnique();
+                entity.HasData(
+                    new PromoCodeData
+                    {
+                        Id = 1,
+                        Code = "WELCOME10",
+                        DiscountValue = 100,
+                        IsActive = true
+                    }
+                );
+            });
+
 
         }
     }
 }
+

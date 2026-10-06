@@ -1,0 +1,129 @@
+@using FornoPizza.Data.Enums
+@using FornoPizza.Data.Models
+@model List<OrderData>
+@{
+    ViewData["Title"] = Orders.Title;
+
+    string StatusLabel(OrderStatus status) => status switch
+    {
+        OrderStatus.New => Shared.Status_New,
+        OrderStatus.Confirmed => Shared.Status_Confirmed,
+        OrderStatus.Cooking => Shared.Status_Cooking,
+        OrderStatus.OnTheWay => Shared.Status_OnTheWay,
+        OrderStatus.Delivered => Shared.Status_Delivered,
+        OrderStatus.Canceled => Shared.Status_Canceled,
+        _ => status.ToString()
+    };
+
+    string PaymentLabel(PaymentMethod method) => method switch
+    {
+        PaymentMethod.Card => Shared.Payment_Card,
+        PaymentMethod.Cash => Shared.Payment_Cash,
+        PaymentMethod.Online => Shared.Payment_Online,
+        _ => method.ToString()
+    };
+
+    string SizeLabel(Size size) => size switch
+    {
+        Size.Small => Orders.Size_Small,
+        Size.Medium => Orders.Size_Medium,
+        Size.Big => Orders.Size_Big,
+        _ => size.ToString()
+    };
+
+    string DoughLabel(Dough dough) => dough switch
+    {
+        Dough.Thin => Orders.Dough_Thin,
+        Dough.Classic => Orders.Dough_Classic,
+        Dough.CheeseFilledCrust => Orders.Dough_Cheese,
+        _ => dough.ToString()
+    };
+}
+
+@await Html.PartialAsync("_SiteHeader")
+
+<main class="kitchen-page">
+    <section class="kitchen-hero">
+        <p class="eyebrow">@Orders.Eyebrow</p>
+        <h1>@Orders.Heading</h1>
+        <p class="lead kitchen-lead">@Orders.Lead</p>
+        <p class="kitchen-count">@Orders.Total <strong>@Model.Count</strong></p>
+    </section>
+
+    @if (Model.Count == 0)
+    {
+        <section class="panel kitchen-empty">
+            <h2>@Orders.Empty_Title</h2>
+            <p>@Orders.Empty_Text</p>
+        </section>
+    }
+    else
+    {
+        <div class="kitchen-queue">
+            @foreach (var order in Model)
+            {
+                <article class="panel kitchen-card" data-order-id="@order.Id">
+                    <div class="kitchen-card__head">
+                        <div>
+                            <p class="kitchen-card__num">№ @order.Id</p>
+                            <p class="kitchen-card__time">@order.DateOfOrder.ToLocalTime().ToString("dd.MM.yyyy, HH:mm")</p>
+                        </div>
+                        <span class="kitchen-status kitchen-status--@order.Status.ToString().ToLowerInvariant()">
+                            @StatusLabel(order.Status)
+                        </span>
+                    </div>
+
+                    <dl class="kitchen-meta">
+                        <div>
+                            <dt>@Shared.Meta_Payment</dt>
+                            <dd>@PaymentLabel(order.PaymentMethod)</dd>
+                        </div>
+                        <div>
+                            <dt>@Shared.Meta_Total</dt>
+                            <dd>@order.FinalPrice.ToString("0") ₽</dd>
+                        </div>
+                    </dl>
+
+                    @if (order.OrderItems.Count > 0)
+                    {
+                        <ul class="cart-list">
+                            @foreach (var item in order.OrderItems)
+                            {
+                                <li class="cart-item">
+                                    <div>
+                                        <strong>@item.PizzaNameInOrder</strong>
+                                        <p class="cart-item__meta">@SizeLabel(item.Size) · @DoughLabel(item.Dough) · × @item.Quantity</p>
+                                    </div>
+                                    <span>@item.LinePrice.ToString("0") ₽</span>
+                                </li>
+                            }
+                        </ul>
+                    }
+
+                    @if (!string.IsNullOrWhiteSpace(order.Comment))
+                    {
+                        <p class="kitchen-comment">@order.Comment</p>
+                    }
+                </article>
+            }
+        </div>
+    }
+</main>
+
+<footer class="footer">
+    <span>@Orders.Footer</span>
+    <span>@Shared.Footer_Hours</span>
+</footer>
+
+<script>
+    window.fornoOrderStatusLabels = {
+        New: @Json.Serialize(Shared.Status_New),
+        Confirmed: @Json.Serialize(Shared.Status_Confirmed),
+        Cooking: @Json.Serialize(Shared.Status_Cooking),
+        OnTheWay: @Json.Serialize(Shared.Status_OnTheWay),
+        Delivered: @Json.Serialize(Shared.Status_Delivered),
+        Canceled: @Json.Serialize(Shared.Status_Canceled)
+    };
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/8.0.7/signalr.min.js"></script>
+<script src="~/js/order/my-orders.js" asp-append-version="true"></script>

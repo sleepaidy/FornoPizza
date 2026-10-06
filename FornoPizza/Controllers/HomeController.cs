@@ -3,6 +3,7 @@ using FornoPizza.Data.Repository.Interfaces;
 using FornoPizza.Models;
 using FornoPizza.Models.Home;
 using FornoPizza.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FornoPizza.Controllers
@@ -34,7 +35,7 @@ namespace FornoPizza.Controllers
         public IActionResult CreateOrder(CreateOrderViewModel viewModel)
         {
             var orderId = _orderService.CreateOrder(viewModel);
-            return RedirectToAction(nameof(OrderSuccess), new {id = orderId});
+            return RedirectToAction(nameof(OrderSuccess), new { id = orderId });
         }
 
         [HttpGet]
@@ -52,5 +53,14 @@ namespace FornoPizza.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+        [Authorize]
+        [HttpGet]
+        public IActionResult MyOrders()
+        {
+            var orders = _orderService.GetMyOrders();
+            return View(orders);
+        }
+
     }
 }

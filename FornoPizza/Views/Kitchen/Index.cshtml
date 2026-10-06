@@ -1,0 +1,127 @@
+﻿@using FornoPizza.Data.Enums
+@using FornoPizza.Models.Kitchen
+@model List<KitchenOrderViewModel>
+@{
+    ViewData["Title"] = Kitchen.Title;
+
+    string StatusLabel(OrderStatus status) => status switch
+    {
+        OrderStatus.New => Shared.Status_New,
+        OrderStatus.Confirmed => Shared.Status_Confirmed,
+        OrderStatus.Cooking => Shared.Status_Cooking,
+        OrderStatus.OnTheWay => Shared.Status_OnTheWay,
+        OrderStatus.Delivered => Shared.Status_Delivered,
+        OrderStatus.Canceled => Shared.Status_Canceled,
+        _ => status.ToString()
+    };
+
+    string PaymentLabel(PaymentMethod method) => method switch
+    {
+        PaymentMethod.Card => Shared.Payment_Card,
+        PaymentMethod.Cash => Shared.Payment_Cash,
+        PaymentMethod.Online => Shared.Payment_Online,
+        _ => method.ToString()
+    };
+
+    string NextActionLabel(OrderStatus next) => next switch
+    {
+        OrderStatus.Confirmed => Kitchen.Action_Confirm,
+        OrderStatus.Cooking => Kitchen.Action_Cook,
+        OrderStatus.OnTheWay => Kitchen.Action_Handoff,
+        OrderStatus.Delivered => Kitchen.Action_Delivered,
+        _ => Kitchen.Action_Next
+    };
+}
+
+@await Html.PartialAsync("_SiteHeader")
+
+<main class="kitchen-page">
+    <section class="kitchen-hero">
+        <p class="eyebrow">@Kitchen.Eyebrow</p>
+        <h1>@Kitchen.Heading</h1>
+        <p class="lead kitchen-lead">@Kitchen.Lead</p>
+        <p class="kitchen-count">@Kitchen.InProgress <strong>@Model.Count</strong></p>
+        @if (TempData["KitchenError"] is string kitchenError)
+        {
+            <p class="kitchen-error">@kitchenError</p>
+        }
+    </section>
+
+    @if (Model.Count == 0)
+    {
+        <section class="panel kitchen-empty">
+            <h2>@Kitchen.Empty_Title</h2>
+            <p>@Kitchen.Empty_Text</p>
+        </section>
+    }
+    else
+    {
+        <div class="kitchen-queue">
+            @foreach (var card in Model)
+            {
+                var order = card.Order;
+                <article class="panel kitchen-card">
+                    <div class="kitchen-card__head">
+                        <div>
+                            <p class="kitchen-card__num">№ @order.Id</p>
+                            <p class="kitchen-card__time">@order.DateOfOrder.ToLocalTime().ToString("dd.MM.yyyy, HH:mm")</p>
+                        </div>
+                        <span class="kitchen-status kitchen-status--@order.Status.ToString().ToLowerInvariant()">
+                            @StatusLabel(order.Status)
+                        </span>
+                    </div>
+
+                    <dl class="kitchen-meta">
+                        <div>
+                            <dt>@Kitchen.Meta_Client</dt>
+                            <dd>@(order.Client?.Name ?? "—")</dd>
+                        </div>
+                        <div>
+                            <dt>@Kitchen.Meta_Phone</dt>
+                            <dd>@(order.Client?.TelephoneNumber ?? "—")</dd>
+                        </div>
+                        <div>
+                            <dt>@Kitchen.Meta_Address</dt>
+                            <dd>@(order.Client?.Address ?? "—")</dd>
+                        </div>
+                        <div>
+                            <dt>@Shared.Meta_Payment</dt>
+                            <dd>@PaymentLabel(order.PaymentMethod)</dd>
+                        </div>
+                        <div>
+                            <dt>@Shared.Meta_Total</dt>
+                            <dd>@order.FinalPrice.ToString("0") ₽</dd>
+                        </div>
+                    </dl>
+
+                    @if (!string.IsNullOrWhiteSpace(order.Comment))
+                    {
+                        <p class="kitchen-comment">@order.Comment</p>
+                    }
+
+                    <div class="kitchen-actions">
+                        @if (card.NextStatus is OrderStatus nextStatus)
+                        {
+                            <form asp-controller="Kitchen" asp-action="Advance" method="post">
+                                <input type="hidden" name="id" value="@order.Id" />
+                                <button class="btn btn-primary" type="submit">@NextActionLabel(nextStatus)</button>
+                            </form>
+                        }
+                        @if (card.CanCancel)
+                        {
+                            <form asp-controller="Kitchen" asp-action="Cancel" method="post">
+                                <input type="hidden" name="id" value="@order.Id" />
+                                <button class="btn btn-ghost" type="submit">@Kitchen.Action_Cancel</button>
+                            </form>
+                        }
+                    </div>
+                </article>
+            }
+        </div>
+    }
+</main>
+
+<footer class="footer">
+    <span>@Kitchen.Footer</span>
+    <span>@Shared.Footer_Hours</span>
+</footer>

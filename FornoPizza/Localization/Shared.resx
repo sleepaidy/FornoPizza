@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="Nav_Menu" xml:space="preserve"><value>Меню</value></data>
+  <data name="Nav_Build" xml:space="preserve"><value>Сборка</value></data>
+  <data name="Nav_Order" xml:space="preserve"><value>Заказ</value></data>
+  <data name="Nav_Kitchen" xml:space="preserve"><value>Кухня</value></data>
+  <data name="Nav_Checkout" xml:space="preserve"><value>К оформлению</value></data>
+  <data name="Nav_MyOrders" xml:space="preserve"><value>Мои заказы</value></data>
+  <data name="Nav_LogOut" xml:space="preserve"><value>Выйти</value></data>
+  <data name="Nav_LogIn" xml:space="preserve"><value>Войти</value></data>
+  <data name="Lang_Label" xml:space="preserve"><value>Язык</value></data>
+  <data name="Lang_Ru" xml:space="preserve"><value>RU</value></data>
+  <data name="Lang_En" xml:space="preserve"><value>EN</value></data>
+  <data name="Footer_Hours" xml:space="preserve"><value>Ежедневно 11:00–23:00</value></data>
+  <data name="Status_New" xml:space="preserve"><value>Новый</value></data>
+  <data name="Status_Confirmed" xml:space="preserve"><value>Подтверждён</value></data>
+  <data name="Status_Cooking" xml:space="preserve"><value>Готовится</value></data>
+  <data name="Status_OnTheWay" xml:space="preserve"><value>В пути</value></data>
+  <data name="Status_Delivered" xml:space="preserve"><value>Доставлен</value></data>
+  <data name="Status_Canceled" xml:space="preserve"><value>Отменён</value></data>
+  <data name="Payment_Card" xml:space="preserve"><value>Картой курьеру</value></data>
+  <data name="Payment_Cash" xml:space="preserve"><value>Наличными</value></data>
+  <data name="Payment_Online" xml:space="preserve"><value>Онлайн</value></data>
+  <data name="Meta_Payment" xml:space="preserve"><value>Оплата</value></data>
+  <data name="Meta_Total" xml:space="preserve"><value>Сумма</value></data>
+  <data name="Page_Title" xml:space="preserve"><value>FORNO — заказ пиццы</value></data>
+  <data name="Hero_Eyebrow" xml:space="preserve"><value>Доставка за 35 минут</value></data>
+  <data name="Hero_Lead" xml:space="preserve"><value>Выберите пиццу, соберите её под себя и оформите заказ в несколько шагов.</value></data>
+  <data name="Hero_Choose" xml:space="preserve"><value>Выбрать пиццу</value></data>
+  <data name="Hero_Build" xml:space="preserve"><value>Собрать свою</value></data>
+  <data name="Hero_ImageAlt" xml:space="preserve"><value>Пицца из печи</value></data>
+  <data name="Footer_Brand" xml:space="preserve"><value>FORNO · пицца из настоящей печи</value></data>
+  <data name="Error_Promo" xml:space="preserve"><value>Промокод не найден или недействителен.</value></data>
+  <data name="Error_Customer" xml:space="preserve"><value>Укажите имя, телефон и адрес.</value></data>
+  <data name="Error_Pizza" xml:space="preserve"><value>Пицца не найдена или недоступна.</value></data>
+</root>

@@ -1,0 +1,17 @@
+@using System.Globalization
+@{
+    var lang = CultureInfo.CurrentUICulture.TwoLetterISOLanguageName;
+    var returnUrl = Context.Request.PathBase + Context.Request.Path + Context.Request.QueryString;
+}
+<nav class="top-lang" aria-label="@Shared.Lang_Label">
+    <a class="@(lang == "ru" ? "is-active" : null)"
+       asp-controller="Account"
+       asp-action="SetLanguage"
+       asp-route-culture="ru"
+       asp-route-returnUrl="@returnUrl">@Shared.Lang_Ru</a>
+    <a class="@(lang == "en" ? "is-active" : null)"
+       asp-controller="Account"
+       asp-action="SetLanguage"
+       asp-route-culture="en"
+       asp-route-returnUrl="@returnUrl">@Shared.Lang_En</a>
+</nav>
