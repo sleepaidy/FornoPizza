@@ -1,6 +1,6 @@
 @model int
 @{
-    ViewData["Title"] = "FORNO — заказ принят";
+    ViewData["Title"] = Orders.Success_Title;
 }
 
 @await Html.PartialAsync("_SiteHeader")
@@ -8,24 +8,24 @@
 <main class="success-page">
     <section class="success-hero">
         <div class="success-copy">
-            <p class="eyebrow success-eyebrow">Заказ в печи</p>
+            <p class="eyebrow success-eyebrow">@Orders.Success_Eyebrow</p>
             <p class="success-brand">FORNO</p>
-            <h1 class="success-title">Приняли ваш заказ</h1>
-            <p class="lead success-lead">Готовим и везём. Номер заказа сохраните — по нему можно уточнить статус.</p>
+            <h1 class="success-title">@Orders.Success_Heading</h1>
+            <p class="lead success-lead">@Orders.Success_Lead</p>
 
-            <p class="success-order-label">Номер заказа</p>
+            <p class="success-order-label">@Orders.Success_Number</p>
             <p class="success-order-id">№ @Model</p>
 
             <div class="hero-actions success-actions">
-                <a class="btn btn-primary" asp-controller="Home" asp-action="Index">Новый заказ</a>
-                <a class="btn btn-ghost" asp-controller="Home" asp-action="Index">На главную</a>
+                <a class="btn btn-primary" asp-controller="Home" asp-action="Index">@Orders.Success_NewOrder</a>
+                <a class="btn btn-ghost" asp-controller="Home" asp-action="Index">@Orders.Success_Home</a>
             </div>
         </div>
-        <div class="success-visual" role="img" aria-label="Пицца из печи FORNO"></div>
+        <div class="success-visual" role="img" aria-label="@Orders.Success_ImageAlt"></div>
     </section>
 </main>
 
 <footer class="footer">
-    <span>FORNO · пицца из настоящей печи</span>
-    <span>Ежедневно 11:00–23:00</span>
+    <span>@Orders.Success_Footer</span>
+    <span>@Shared.Footer_Hours</span>
 </footer>

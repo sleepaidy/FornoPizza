@@ -1,4 +1,6 @@
-﻿using FornoPizza.Data.Enums;
+﻿using FornoPizza.Localization;
+using FornoPizza.Middleware;
+using FornoPizza.Data.Enums;
 using FornoPizza.Data.Models;
 using FornoPizza.Data.Repository.Interfaces;
 using FornoPizza.Models.Auth;
@@ -15,14 +17,18 @@ namespace FornoPizza.Controllers
         private readonly IUserRepository _userRepository;
         private readonly IAuthService _authService;
         private readonly IWebHostEnvironment _webHostEnvironment;
-        private const string KITCHEN_NAME = "NameOfYourKithen";
-        private const string KITCHEN_PASS = "PassForYourKithen";
+        private readonly IConfiguration _configuration;
 
-        public AccountController(IUserRepository userRepository, IAuthService authService, IWebHostEnvironment webHostEnvironment)
+        public AccountController(
+            IUserRepository userRepository,
+            IAuthService authService,
+            IWebHostEnvironment webHostEnvironment,
+            IConfiguration configuration)
         {
             _userRepository = userRepository;
             _authService = authService;
             _webHostEnvironment = webHostEnvironment;
+            _configuration = configuration;
         }
 
         [HttpGet]
@@ -45,7 +51,7 @@ namespace FornoPizza.Controllers
 
             if (user == null)
             {
-                ModelState.AddModelError(string.Empty, "Неверный логин или пароль.");
+                ModelState.AddModelError(string.Empty, Auth.Error_InvalidCredentials);
                 return View(viewModel);
             }
 
@@ -70,7 +76,7 @@ namespace FornoPizza.Controllers
                 ModelState.Remove(nameof(RegisterViewModel.Login));
                 ModelState.AddModelError(
                     nameof(RegisterViewModel.Login),
-                    "Обязательное поле");
+                    Auth.Error_Required);
             }
 
             if (!ModelState.IsValid)
@@ -82,7 +88,7 @@ namespace FornoPizza.Controllers
             {
                 ModelState.AddModelError(
                     nameof(RegisterViewModel.Login),
-                    "Этот логин уже используется.");
+                    Auth.Error_LoginTaken);
 
                 return View(viewModel);
             }
@@ -102,7 +108,7 @@ namespace FornoPizza.Controllers
             {
                 ModelState.AddModelError(
                     nameof(RegisterViewModel.Login),
-                    "Не удалось создать аккаунт. Попробуйте другой логин.");
+                    Auth.Error_CreateFailed);
                 return View(viewModel);
             }
 
@@ -124,12 +130,20 @@ namespace FornoPizza.Controllers
             {
                 return NotFound();
             }
-            if (!_userRepository.IsNameUniq(KITCHEN_NAME))
+
+            var kitchenName = _configuration["Kitchen:Name"];
+            var kitchenPass = _configuration["Kitchen:Password"];
+            if (string.IsNullOrWhiteSpace(kitchenName) || string.IsNullOrWhiteSpace(kitchenPass))
             {
-                var user = _userRepository.GetByNameAndPassword(KITCHEN_NAME, KITCHEN_PASS);
-               if (user == null)
+                return BadRequest(Auth.Error_KitchenNotConfigured);
+            }
+
+            if (!_userRepository.IsNameUniq(kitchenName))
+            {
+                var user = _userRepository.GetByNameAndPassword(kitchenName, kitchenPass);
+                if (user == null)
                 {
-                    return BadRequest("Pass is not correct");
+                    return BadRequest(Auth.Error_KitchenPassword);
                 }
 
                 await _authService.SignInAsync(user);
@@ -137,14 +151,39 @@ namespace FornoPizza.Controllers
             }
             var userData = new UserData
             {
-                Name = KITCHEN_NAME,
-                Password = KITCHEN_PASS,
+                Name = kitchenName,
+                Password = kitchenPass,
                 Role = Role.Kitchen
             };
             _userRepository.Registration(userData);
             await _authService.SignInAsync(userData);
             return RedirectToAction("Index", "Kitchen");
 
+        }
+
+        [HttpGet]
+        public IActionResult SetLanguage(string culture, string? returnUrl)
+        {
+            if (culture is not ("ru" or "en"))
+            {
+                culture = "ru";
+            }
+
+            Response.Cookies.Append(LocalizationMiddleware.CookieName, culture, new CookieOptions
+            {
+                Expires = DateTimeOffset.UtcNow.AddYears(1),
+                IsEssential = true,
+                HttpOnly = true,
+                SameSite = SameSiteMode.Lax,
+                Path = "/"
+            });
+
+            if (string.IsNullOrEmpty(returnUrl) || !Url.IsLocalUrl(returnUrl))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            return LocalRedirect(returnUrl);
         }
     }
 }

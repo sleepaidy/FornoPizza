@@ -22,6 +22,29 @@ namespace FornoPizza.Data.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("FornoPizza.Data.Models.AddressData", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Addresses");
+                });
+
             modelBuilder.Entity("FornoPizza.Data.Models.ClientData", b =>
                 {
                     b.Property<int>("Id")
@@ -61,12 +84,20 @@ namespace FornoPizza.Data.Migrations
                     b.Property<int>("ClientId")
                         .HasColumnType("int");
 
+                    b.Property<string>("Code")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
                     b.Property<string>("Comment")
                         .HasMaxLength(300)
                         .HasColumnType("nvarchar(300)");
 
                     b.Property<DateTime>("DateOfOrder")
                         .HasColumnType("datetime2");
+
+                    b.Property<decimal>("DiscountValue")
+                        .HasPrecision(18, 2)
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<decimal>("FinalPrice")
                         .HasPrecision(18, 2)
@@ -232,11 +263,48 @@ namespace FornoPizza.Data.Migrations
                         new
                         {
                             Id = 4,
-                            ImageUrl = "https://images.unsplash.com/photo-1548365328-9f68587ace8e?auto=format&fit=crop&w=800&q=80",
+                            ImageUrl = "https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=800&q=80",
                             Ingredients = "Моцарелла, горгонзола, пармезан, чеддер",
                             IsAvailable = true,
                             Name = "Четыре сыра",
                             Price = 650m
+                        });
+                });
+
+            modelBuilder.Entity("FornoPizza.Data.Models.PromoCodeData", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<decimal>("DiscountValue")
+                        .HasPrecision(18, 2)
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Code")
+                        .IsUnique();
+
+                    b.ToTable("PromoCodes");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Code = "WELCOME10",
+                            DiscountValue = 100m,
+                            IsActive = true
                         });
                 });
 
@@ -337,6 +405,17 @@ namespace FornoPizza.Data.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("FornoPizza.Data.Models.AddressData", b =>
+                {
+                    b.HasOne("FornoPizza.Data.Models.UserData", "User")
+                        .WithMany("Addresses")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("FornoPizza.Data.Models.OrderData", b =>
                 {
                     b.HasOne("FornoPizza.Data.Models.ClientData", "Client")
@@ -410,6 +489,11 @@ namespace FornoPizza.Data.Migrations
             modelBuilder.Entity("FornoPizza.Data.Models.ToppingData", b =>
                 {
                     b.Navigation("OrderToppings");
+                });
+
+            modelBuilder.Entity("FornoPizza.Data.Models.UserData", b =>
+                {
+                    b.Navigation("Addresses");
                 });
 #pragma warning restore 612, 618
         }

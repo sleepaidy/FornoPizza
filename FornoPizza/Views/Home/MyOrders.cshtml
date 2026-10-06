@@ -2,40 +2,40 @@
 @using FornoPizza.Data.Models
 @model List<OrderData>
 @{
-    ViewData["Title"] = "FORNO — мои заказы";
+    ViewData["Title"] = Orders.Title;
 
     string StatusLabel(OrderStatus status) => status switch
     {
-        OrderStatus.New => "Новый",
-        OrderStatus.Confirmed => "Подтверждён",
-        OrderStatus.Cooking => "Готовится",
-        OrderStatus.OnTheWay => "В пути",
-        OrderStatus.Delivered => "Доставлен",
-        OrderStatus.Canceled => "Отменён",
+        OrderStatus.New => Shared.Status_New,
+        OrderStatus.Confirmed => Shared.Status_Confirmed,
+        OrderStatus.Cooking => Shared.Status_Cooking,
+        OrderStatus.OnTheWay => Shared.Status_OnTheWay,
+        OrderStatus.Delivered => Shared.Status_Delivered,
+        OrderStatus.Canceled => Shared.Status_Canceled,
         _ => status.ToString()
     };
 
     string PaymentLabel(PaymentMethod method) => method switch
     {
-        PaymentMethod.Card => "Картой курьеру",
-        PaymentMethod.Cash => "Наличными",
-        PaymentMethod.Online => "Онлайн",
+        PaymentMethod.Card => Shared.Payment_Card,
+        PaymentMethod.Cash => Shared.Payment_Cash,
+        PaymentMethod.Online => Shared.Payment_Online,
         _ => method.ToString()
     };
 
     string SizeLabel(Size size) => size switch
     {
-        Size.Small => "Маленькая",
-        Size.Medium => "Средняя",
-        Size.Big => "Большая",
+        Size.Small => Orders.Size_Small,
+        Size.Medium => Orders.Size_Medium,
+        Size.Big => Orders.Size_Big,
         _ => size.ToString()
     };
 
     string DoughLabel(Dough dough) => dough switch
     {
-        Dough.Thin => "Тонкое",
-        Dough.Classic => "Классическое",
-        Dough.CheeseFilledCrust => "Сырный борт",
+        Dough.Thin => Orders.Dough_Thin,
+        Dough.Classic => Orders.Dough_Classic,
+        Dough.CheeseFilledCrust => Orders.Dough_Cheese,
         _ => dough.ToString()
     };
 }
@@ -44,17 +44,17 @@
 
 <main class="kitchen-page">
     <section class="kitchen-hero">
-        <p class="eyebrow">Твои заказы</p>
-        <h1>Мои заказы</h1>
-        <p class="lead kitchen-lead">Все заказы этого аккаунта: новые, в пути, доставленные и отменённые.</p>
-        <p class="kitchen-count">Всего: <strong>@Model.Count</strong></p>
+        <p class="eyebrow">@Orders.Eyebrow</p>
+        <h1>@Orders.Heading</h1>
+        <p class="lead kitchen-lead">@Orders.Lead</p>
+        <p class="kitchen-count">@Orders.Total <strong>@Model.Count</strong></p>
     </section>
 
     @if (Model.Count == 0)
     {
         <section class="panel kitchen-empty">
-            <h2>Заказов пока нет</h2>
-            <p>Когда оформишь пиццу, она появится здесь.</p>
+            <h2>@Orders.Empty_Title</h2>
+            <p>@Orders.Empty_Text</p>
         </section>
     }
     else
@@ -75,11 +75,11 @@
 
                     <dl class="kitchen-meta">
                         <div>
-                            <dt>Оплата</dt>
+                            <dt>@Shared.Meta_Payment</dt>
                             <dd>@PaymentLabel(order.PaymentMethod)</dd>
                         </div>
                         <div>
-                            <dt>Сумма</dt>
+                            <dt>@Shared.Meta_Total</dt>
                             <dd>@order.FinalPrice.ToString("0") ₽</dd>
                         </div>
                     </dl>
@@ -111,9 +111,19 @@
 </main>
 
 <footer class="footer">
-    <span>FORNO · мои заказы</span>
-    <span>Ежедневно 11:00–23:00</span>
+    <span>@Orders.Footer</span>
+    <span>@Shared.Footer_Hours</span>
 </footer>
 
+<script>
+    window.fornoOrderStatusLabels = {
+        New: @Json.Serialize(Shared.Status_New),
+        Confirmed: @Json.Serialize(Shared.Status_Confirmed),
+        Cooking: @Json.Serialize(Shared.Status_Cooking),
+        OnTheWay: @Json.Serialize(Shared.Status_OnTheWay),
+        Delivered: @Json.Serialize(Shared.Status_Delivered),
+        Canceled: @Json.Serialize(Shared.Status_Canceled)
+    };
+</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/8.0.7/signalr.min.js"></script>
 <script src="~/js/order/my-orders.js" asp-append-version="true"></script>

@@ -62,5 +62,35 @@ namespace FornoPizza.Data.Repository
             return _webContext.Users.FirstOrDefault(x => x.Id == id);
         }
 
+        public List<AddressData> GetAddresses(int userId)
+        {
+            return _webContext.Addresses
+                .Where(address => address.UserId == userId)
+                .ToList();
+        }
+
+        public void RememberAddress(int userId, string address)
+        {
+            var text = address.Trim();
+            if (text.Length == 0 || text.Length > 250)
+            {
+                return;
+            }
+
+            var alreadySaved = _webContext.Addresses
+                .Any(item => item.UserId == userId && item.Address == text);
+            if (alreadySaved)
+            {
+                return;
+            }
+
+            _webContext.Addresses.Add(new AddressData
+            {
+                UserId = userId,
+                Address = text
+            });
+            _webContext.SaveChanges();
+        }
+
     }
 }

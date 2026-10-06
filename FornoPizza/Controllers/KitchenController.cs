@@ -1,4 +1,5 @@
 ﻿using FornoPizza.Data.Enums;
+using FornoPizza.Localization;
 using FornoPizza.Data.Repository.Interfaces;
 using FornoPizza.Models.Kitchen;
 using FornoPizza.Services.Interfaces;
@@ -63,7 +64,7 @@ namespace FornoPizza.Controllers
             }
             catch (InvalidOperationException)
             {
-                TempData["KitchenError"] = "Не удалось сменить статус заказа.";
+                TempData["KitchenError"] = Kitchen.Error_Status;
             }
 
             return RedirectToAction(nameof(Index));
@@ -79,7 +80,7 @@ namespace FornoPizza.Controllers
             }
             catch (InvalidOperationException)
             {
-                TempData["KitchenError"] = "Этот заказ нельзя отменить.";
+                TempData["KitchenError"] = Kitchen.Error_Cancel;
             }
 
             return RedirectToAction(nameof(Index));

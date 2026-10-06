@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="Title" xml:space="preserve"><value>FORNO — my orders</value></data>
+  <data name="Eyebrow" xml:space="preserve"><value>Your orders</value></data>
+  <data name="Heading" xml:space="preserve"><value>My orders</value></data>
+  <data name="Lead" xml:space="preserve"><value>Every order on this account: new, on the way, delivered, and canceled.</value></data>
+  <data name="Total" xml:space="preserve"><value>Total:</value></data>
+  <data name="Empty_Title" xml:space="preserve"><value>No orders yet</value></data>
+  <data name="Empty_Text" xml:space="preserve"><value>When you order a pizza, it will show up here.</value></data>
+  <data name="Size_Small" xml:space="preserve"><value>Small</value></data>
+  <data name="Size_Medium" xml:space="preserve"><value>Medium</value></data>
+  <data name="Size_Big" xml:space="preserve"><value>Large</value></data>
+  <data name="Dough_Thin" xml:space="preserve"><value>Thin</value></data>
+  <data name="Dough_Classic" xml:space="preserve"><value>Classic</value></data>
+  <data name="Dough_Cheese" xml:space="preserve"><value>Cheese crust</value></data>
+  <data name="Footer" xml:space="preserve"><value>FORNO · my orders</value></data>
+  <data name="Success_Title" xml:space="preserve"><value>FORNO — order accepted</value></data>
+  <data name="Success_Eyebrow" xml:space="preserve"><value>Order in the oven</value></data>
+  <data name="Success_Heading" xml:space="preserve"><value>We got your order</value></data>
+  <data name="Success_Lead" xml:space="preserve"><value>We are cooking and delivering. Save the order number — you can check the status with it.</value></data>
+  <data name="Success_Number" xml:space="preserve"><value>Order number</value></data>
+  <data name="Success_NewOrder" xml:space="preserve"><value>New order</value></data>
+  <data name="Success_Home" xml:space="preserve"><value>Home</value></data>
+  <data name="Success_ImageAlt" xml:space="preserve"><value>Pizza from the FORNO oven</value></data>
+  <data name="Success_Footer" xml:space="preserve"><value>FORNO · pizza from a real oven</value></data>
+</root>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="Title" xml:space="preserve"><value>FORNO — kitchen</value></data>
+  <data name="Eyebrow" xml:space="preserve"><value>Shift only</value></data>
+  <data name="Heading" xml:space="preserve"><value>Kitchen</value></data>
+  <data name="Lead" xml:space="preserve"><value>Live queue: new and current orders. Delivered and canceled orders stay off this screen.</value></data>
+  <data name="InProgress" xml:space="preserve"><value>In progress:</value></data>
+  <data name="Empty_Title" xml:space="preserve"><value>The queue is empty</value></data>
+  <data name="Empty_Text" xml:space="preserve"><value>No new orders — you can take a breath by the oven.</value></data>
+  <data name="Meta_Client" xml:space="preserve"><value>Customer</value></data>
+  <data name="Meta_Phone" xml:space="preserve"><value>Phone</value></data>
+  <data name="Meta_Address" xml:space="preserve"><value>Address</value></data>
+  <data name="Action_Confirm" xml:space="preserve"><value>Confirm</value></data>
+  <data name="Action_Cook" xml:space="preserve"><value>Start cooking</value></data>
+  <data name="Action_Handoff" xml:space="preserve"><value>Hand to courier</value></data>
+  <data name="Action_Delivered" xml:space="preserve"><value>Delivered</value></data>
+  <data name="Action_Next" xml:space="preserve"><value>Next</value></data>
+  <data name="Action_Cancel" xml:space="preserve"><value>Cancel</value></data>
+  <data name="Error_Status" xml:space="preserve"><value>Could not change the order status.</value></data>
+  <data name="Error_Cancel" xml:space="preserve"><value>This order cannot be canceled.</value></data>
+  <data name="Footer" xml:space="preserve"><value>FORNO · kitchen</value></data>
+</root>

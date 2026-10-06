@@ -8,5 +8,7 @@ namespace FornoPizza.Data.Repository.Interfaces
         bool IsNameUniq(string name);
         void Registration(UserData user);
         UserData? Get(int id);
+        List<AddressData> GetAddresses(int userId);
+        void RememberAddress(int userId, string address);
     }
 }

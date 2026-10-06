@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="Nav_Menu" xml:space="preserve"><value>Menu</value></data>
+  <data name="Nav_Build" xml:space="preserve"><value>Build</value></data>
+  <data name="Nav_Order" xml:space="preserve"><value>Order</value></data>
+  <data name="Nav_Kitchen" xml:space="preserve"><value>Kitchen</value></data>
+  <data name="Nav_Checkout" xml:space="preserve"><value>Checkout</value></data>
+  <data name="Nav_MyOrders" xml:space="preserve"><value>My orders</value></data>
+  <data name="Nav_LogOut" xml:space="preserve"><value>Log out</value></data>
+  <data name="Nav_LogIn" xml:space="preserve"><value>Log in</value></data>
+  <data name="Lang_Label" xml:space="preserve"><value>Language</value></data>
+  <data name="Lang_Ru" xml:space="preserve"><value>RU</value></data>
+  <data name="Lang_En" xml:space="preserve"><value>EN</value></data>
+  <data name="Footer_Hours" xml:space="preserve"><value>Daily 11:00–23:00</value></data>
+  <data name="Status_New" xml:space="preserve"><value>New</value></data>
+  <data name="Status_Confirmed" xml:space="preserve"><value>Confirmed</value></data>
+  <data name="Status_Cooking" xml:space="preserve"><value>Cooking</value></data>
+  <data name="Status_OnTheWay" xml:space="preserve"><value>On the way</value></data>
+  <data name="Status_Delivered" xml:space="preserve"><value>Delivered</value></data>
+  <data name="Status_Canceled" xml:space="preserve"><value>Canceled</value></data>
+  <data name="Payment_Card" xml:space="preserve"><value>Card to courier</value></data>
+  <data name="Payment_Cash" xml:space="preserve"><value>Cash</value></data>
+  <data name="Payment_Online" xml:space="preserve"><value>Online</value></data>
+  <data name="Meta_Payment" xml:space="preserve"><value>Payment</value></data>
+  <data name="Meta_Total" xml:space="preserve"><value>Total</value></data>
+  <data name="Page_Title" xml:space="preserve"><value>FORNO — order pizza</value></data>
+  <data name="Hero_Eyebrow" xml:space="preserve"><value>Delivery in 35 minutes</value></data>
+  <data name="Hero_Lead" xml:space="preserve"><value>Pick a pizza, build it your way, and place the order in a few steps.</value></data>
+  <data name="Hero_Choose" xml:space="preserve"><value>Choose a pizza</value></data>
+  <data name="Hero_Build" xml:space="preserve"><value>Build your own</value></data>
+  <data name="Hero_ImageAlt" xml:space="preserve"><value>Pizza from the oven</value></data>
+  <data name="Footer_Brand" xml:space="preserve"><value>FORNO · pizza from a real oven</value></data>
+  <data name="Error_Promo" xml:space="preserve"><value>Promo code was not found or is not valid.</value></data>
+  <data name="Error_Customer" xml:space="preserve"><value>Enter your name, phone, and address.</value></data>
+  <data name="Error_Pizza" xml:space="preserve"><value>Pizza was not found or is unavailable.</value></data>
+</root>

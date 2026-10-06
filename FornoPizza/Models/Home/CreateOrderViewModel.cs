@@ -8,6 +8,7 @@ namespace FornoPizza.Models.Home
         public string ClientPhone { get; set; } = string.Empty;
         public string ClientAddress { get; set; } = string.Empty;
         public string Comment { get; set; } = string.Empty;
+        public string PromoCode { get; set; } = string.Empty;
         public PaymentMethod PaymentMethod { get; set; }
         public List<OrderItemViewModel> OrderItems { get; set; } = new();
 

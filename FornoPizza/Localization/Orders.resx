@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="Title" xml:space="preserve"><value>FORNO — мои заказы</value></data>
+  <data name="Eyebrow" xml:space="preserve"><value>Твои заказы</value></data>
+  <data name="Heading" xml:space="preserve"><value>Мои заказы</value></data>
+  <data name="Lead" xml:space="preserve"><value>Все заказы этого аккаунта: новые, в пути, доставленные и отменённые.</value></data>
+  <data name="Total" xml:space="preserve"><value>Всего:</value></data>
+  <data name="Empty_Title" xml:space="preserve"><value>Заказов пока нет</value></data>
+  <data name="Empty_Text" xml:space="preserve"><value>Когда оформишь пиццу, она появится здесь.</value></data>
+  <data name="Size_Small" xml:space="preserve"><value>Маленькая</value></data>
+  <data name="Size_Medium" xml:space="preserve"><value>Средняя</value></data>
+  <data name="Size_Big" xml:space="preserve"><value>Большая</value></data>
+  <data name="Dough_Thin" xml:space="preserve"><value>Тонкое</value></data>
+  <data name="Dough_Classic" xml:space="preserve"><value>Классическое</value></data>
+  <data name="Dough_Cheese" xml:space="preserve"><value>Сырный борт</value></data>
+  <data name="Footer" xml:space="preserve"><value>FORNO · мои заказы</value></data>
+  <data name="Success_Title" xml:space="preserve"><value>FORNO — заказ принят</value></data>
+  <data name="Success_Eyebrow" xml:space="preserve"><value>Заказ в печи</value></data>
+  <data name="Success_Heading" xml:space="preserve"><value>Приняли ваш заказ</value></data>
+  <data name="Success_Lead" xml:space="preserve"><value>Готовим и везём. Номер заказа сохраните — по нему можно уточнить статус.</value></data>
+  <data name="Success_Number" xml:space="preserve"><value>Номер заказа</value></data>
+  <data name="Success_NewOrder" xml:space="preserve"><value>Новый заказ</value></data>
+  <data name="Success_Home" xml:space="preserve"><value>На главную</value></data>
+  <data name="Success_ImageAlt" xml:space="preserve"><value>Пицца из печи FORNO</value></data>
+  <data name="Success_Footer" xml:space="preserve"><value>FORNO · пицца из настоящей печи</value></data>
+</root>

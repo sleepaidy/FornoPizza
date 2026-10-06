@@ -35,7 +35,7 @@ namespace FornoPizza.Controllers
         public IActionResult CreateOrder(CreateOrderViewModel viewModel)
         {
             var orderId = _orderService.CreateOrder(viewModel);
-            return RedirectToAction(nameof(OrderSuccess), new {id = orderId});
+            return RedirectToAction(nameof(OrderSuccess), new { id = orderId });
         }
 
         [HttpGet]
@@ -61,5 +61,6 @@ namespace FornoPizza.Controllers
             var orders = _orderService.GetMyOrders();
             return View(orders);
         }
+
     }
 }

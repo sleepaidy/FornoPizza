@@ -2,34 +2,34 @@
 @using FornoPizza.Models.Kitchen
 @model List<KitchenOrderViewModel>
 @{
-    ViewData["Title"] = "FORNO — кухня";
+    ViewData["Title"] = Kitchen.Title;
 
     string StatusLabel(OrderStatus status) => status switch
     {
-        OrderStatus.New => "Новый",
-        OrderStatus.Confirmed => "Подтверждён",
-        OrderStatus.Cooking => "Готовится",
-        OrderStatus.OnTheWay => "В пути",
-        OrderStatus.Delivered => "Доставлен",
-        OrderStatus.Canceled => "Отменён",
+        OrderStatus.New => Shared.Status_New,
+        OrderStatus.Confirmed => Shared.Status_Confirmed,
+        OrderStatus.Cooking => Shared.Status_Cooking,
+        OrderStatus.OnTheWay => Shared.Status_OnTheWay,
+        OrderStatus.Delivered => Shared.Status_Delivered,
+        OrderStatus.Canceled => Shared.Status_Canceled,
         _ => status.ToString()
     };
 
     string PaymentLabel(PaymentMethod method) => method switch
     {
-        PaymentMethod.Card => "Картой курьеру",
-        PaymentMethod.Cash => "Наличными",
-        PaymentMethod.Online => "Онлайн",
+        PaymentMethod.Card => Shared.Payment_Card,
+        PaymentMethod.Cash => Shared.Payment_Cash,
+        PaymentMethod.Online => Shared.Payment_Online,
         _ => method.ToString()
     };
 
     string NextActionLabel(OrderStatus next) => next switch
     {
-        OrderStatus.Confirmed => "Подтвердить",
-        OrderStatus.Cooking => "Начать готовить",
-        OrderStatus.OnTheWay => "Передать курьеру",
-        OrderStatus.Delivered => "Доставлен",
-        _ => "Дальше"
+        OrderStatus.Confirmed => Kitchen.Action_Confirm,
+        OrderStatus.Cooking => Kitchen.Action_Cook,
+        OrderStatus.OnTheWay => Kitchen.Action_Handoff,
+        OrderStatus.Delivered => Kitchen.Action_Delivered,
+        _ => Kitchen.Action_Next
     };
 }
 
@@ -37,10 +37,10 @@
 
 <main class="kitchen-page">
     <section class="kitchen-hero">
-        <p class="eyebrow">Только для смены</p>
-        <h1>Кухня</h1>
-        <p class="lead kitchen-lead">Живая очередь: новые и текущие заказы. Доставленные и отменённые сюда не попадают.</p>
-        <p class="kitchen-count">В работе: <strong>@Model.Count</strong></p>
+        <p class="eyebrow">@Kitchen.Eyebrow</p>
+        <h1>@Kitchen.Heading</h1>
+        <p class="lead kitchen-lead">@Kitchen.Lead</p>
+        <p class="kitchen-count">@Kitchen.InProgress <strong>@Model.Count</strong></p>
         @if (TempData["KitchenError"] is string kitchenError)
         {
             <p class="kitchen-error">@kitchenError</p>
@@ -50,8 +50,8 @@
     @if (Model.Count == 0)
     {
         <section class="panel kitchen-empty">
-            <h2>Очередь пуста</h2>
-            <p>Новых заказов нет — можно перевести дух у печи.</p>
+            <h2>@Kitchen.Empty_Title</h2>
+            <p>@Kitchen.Empty_Text</p>
         </section>
     }
     else
@@ -73,23 +73,23 @@
 
                     <dl class="kitchen-meta">
                         <div>
-                            <dt>Клиент</dt>
+                            <dt>@Kitchen.Meta_Client</dt>
                             <dd>@(order.Client?.Name ?? "—")</dd>
                         </div>
                         <div>
-                            <dt>Телефон</dt>
+                            <dt>@Kitchen.Meta_Phone</dt>
                             <dd>@(order.Client?.TelephoneNumber ?? "—")</dd>
                         </div>
                         <div>
-                            <dt>Адрес</dt>
+                            <dt>@Kitchen.Meta_Address</dt>
                             <dd>@(order.Client?.Address ?? "—")</dd>
                         </div>
                         <div>
-                            <dt>Оплата</dt>
+                            <dt>@Shared.Meta_Payment</dt>
                             <dd>@PaymentLabel(order.PaymentMethod)</dd>
                         </div>
                         <div>
-                            <dt>Сумма</dt>
+                            <dt>@Shared.Meta_Total</dt>
                             <dd>@order.FinalPrice.ToString("0") ₽</dd>
                         </div>
                     </dl>
@@ -111,7 +111,7 @@
                         {
                             <form asp-controller="Kitchen" asp-action="Cancel" method="post">
                                 <input type="hidden" name="id" value="@order.Id" />
-                                <button class="btn btn-ghost" type="submit">Отменить</button>
+                                <button class="btn btn-ghost" type="submit">@Kitchen.Action_Cancel</button>
                             </form>
                         }
                     </div>
@@ -122,6 +122,6 @@
 </main>
 
 <footer class="footer">
-    <span>FORNO · кухня</span>
-    <span>Ежедневно 11:00–23:00</span>
+    <span>@Kitchen.Footer</span>
+    <span>@Shared.Footer_Hours</span>
 </footer>

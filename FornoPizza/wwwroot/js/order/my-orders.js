@@ -1,5 +1,5 @@
 (function () {
-    const labels = {
+    const labels = window.fornoOrderStatusLabels || {
         New: "Новый",
         Confirmed: "Подтверждён",
         Cooking: "Готовится",

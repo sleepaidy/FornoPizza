@@ -7,5 +7,6 @@ namespace FornoPizza.Services.Interfaces
     {
         public int CreateOrder(CreateOrderViewModel createOrderViewModel);
         public List<OrderData> GetMyOrders();
+        public PromoPreviewResult PreviewPromo(string promoCode, List<OrderItemViewModel> orderItems);
     }
 }

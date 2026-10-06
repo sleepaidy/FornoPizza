@@ -1,7 +1,9 @@
 using FornoPizza.Data;
+using FornoPizza.Endpoints;
 using FornoPizza.Data.Repository;
 using FornoPizza.Data.Repository.Interfaces;
 using FornoPizza.Hubs;
+using FornoPizza.Middleware;
 using FornoPizza.Services;
 using FornoPizza.Services.Interfaces;
 using Microsoft.AspNetCore.SignalR;
@@ -51,8 +53,10 @@ app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
+app.UseMiddleware<LocalizationMiddleware>();
 
 app.MapHub<OrderHub>("/orderHub");
+app.MapJsonApi();
 
 app.MapControllerRoute(
     name: "default",

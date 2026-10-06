@@ -7,6 +7,7 @@ namespace FornoPizza.Services.Interfaces
     {
         public OrderLineDto CalculateOnePosition(int pizzaId, Size size, Dough dough, IEnumerable<int> toppingIds, int quantity);
         public decimal CalculateTotalOrder(List<OrderLineDto> orderLines);
+        public decimal CalculatePromoDiscount(string promoCode, decimal totalPrice);
 
     }
 }
